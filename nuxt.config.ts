@@ -3,5 +3,5 @@ export default defineNuxtConfig({
   typescript: {
     shim: false,
   },
-  modules: ['@vueuse/nuxt'],
+  modules: ['@vueuse/nuxt', 'nuxt-windicss'],
 })
