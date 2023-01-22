@@ -46,6 +46,6 @@ pnpm lint:fix
 
 对于 Commit Message，也有一定的规范，具体规则可以参考 <https://www.conventionalcommits.org/zh-hans/v1.0.0/>。也可以看看历史 Commits
 
-<!-- ## 自动部署
+## 自动部署
 
-主分支的代码会自动部署到服务器上，可以通过 <https://juejin.daidr.me> 访问，且 commit 更新内容会在飞书群进行通知。 -->
+主分支的代码会自动部署到服务器上，可以通过 <https://juejin.daidr.me> 访问，且 commit 更新内容会在飞书群进行通知。
