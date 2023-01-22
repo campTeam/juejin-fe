@@ -49,3 +49,9 @@ pnpm lint:fix
 ## 自动部署
 
 主分支的代码会自动部署到服务器上，可以通过 <https://juejin.daidr.me> 访问，且 commit 更新内容会在飞书群进行通知。
+
+## 文件结构
+
+```bash
+TODO
+```
