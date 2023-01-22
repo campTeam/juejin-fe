@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-pnpm exec lint-staged
+if [[ -t 1 && -t 2 ]]; then exec >/dev/tty 2>&1; fi
+
+npx lint-staged
