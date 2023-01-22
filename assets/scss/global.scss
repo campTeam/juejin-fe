@@ -1,4 +1,4 @@
-@import "theme";
+@import 'theme';
 
 * {
   box-sizing: border-box;
@@ -9,4 +9,8 @@
 
 ::selection {
   @apply bg-primary text-primary-extralight;
+}
+
+html {
+  font-size: 16px;
 }
