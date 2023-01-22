@@ -21,8 +21,18 @@ export default defineConfig({
         primary: {
           extralight: withOpacityValue('--color-primary-extralight'),
           light: withOpacityValue('--color-primary-light'),
+          medium: withOpacityValue('--color-primary-medium'),
           DEFAULT: withOpacityValue('--color-primary'),
         },
+        gray: {
+          light: withOpacityValue('--color-gray-light'),
+          DEFAULT: withOpacityValue('--color-gray'),
+          dark: withOpacityValue('--color-gray-dark'),
+        },
+        blue: withOpacityValue('--color-blue'),
+        green: withOpacityValue('--color-green'),
+        black: withOpacityValue('--color-black'),
+        white: withOpacityValue('--color-white'),
       },
       screens: {
         xs: '360px',
