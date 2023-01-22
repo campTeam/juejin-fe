@@ -1,0 +1,15 @@
+@import 'variables';
+
+:root {
+  @include spread-theme-map(theme-default-map());
+  @include spread-theme-map(theme-primary-map());
+}
+
+$themeColorList: (#1e80ff, #f44336);
+
+@for $i from 1 through length($themeColorList) {
+  $color: nth($themeColorList, $i);
+  .theme-#{$i} {
+    @include spread-theme-map(theme-primary-map($color));
+  }
+}
