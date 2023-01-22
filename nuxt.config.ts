@@ -4,4 +4,5 @@ export default defineNuxtConfig({
     shim: false,
   },
   modules: ['@vueuse/nuxt', 'nuxt-windicss'],
+  css: ['~/assets/scss/global.scss'],
 })
