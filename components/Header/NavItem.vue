@@ -13,11 +13,21 @@ defineProps({
     required: false,
     default: '',
   },
+  inSite: {
+    type: Boolean,
+    required: false,
+    default: true,
+  },
 })
 </script>
 
 <template>
-  <a :href="link" class="nav-item" :data-badge="badge">{{ label }}</a>
+  <NuxtLink v-if="inSite" :to="link" class="nav-item" :data-badge="badge">
+    {{ label }}
+  </NuxtLink>
+  <a v-else :href="link" class="nav-item" :data-badge="badge" target="_blank">{{
+    label
+  }}</a>
 </template>
 
 <style lang="scss" scoped>
@@ -44,6 +54,11 @@ defineProps({
 
   &[data-badge='']::after {
     content: unset;
+  }
+
+  &.router-link-exact-active {
+    @apply pointer-events-none;
+    @apply opacity-100 text-primary;
   }
 }
 </style>

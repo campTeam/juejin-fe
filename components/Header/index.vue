@@ -17,6 +17,7 @@ const { data } = await useFetch('/api/global/nav')
               :label="nav.label"
               :link="nav.link"
               :badge="nav.badge || ''"
+              :in-site="nav.inSite"
             />
           </div>
         </div>

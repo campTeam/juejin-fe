@@ -5,6 +5,7 @@ interface INavItem {
   label: string
   badge: string | null
   link: string
+  inSite: boolean
 }
 
 interface IOriginNavResponse {
