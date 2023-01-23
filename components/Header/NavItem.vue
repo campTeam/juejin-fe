@@ -26,6 +26,7 @@ defineProps({
   @apply text-[15px] border-b-2 border-transparent;
   @apply relative;
   @apply opacity-85;
+  @apply text-black dark:text-[#e8ecfa];
 
   &:hover {
     @apply border-b-primary;

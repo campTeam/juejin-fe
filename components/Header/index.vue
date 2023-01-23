@@ -19,7 +19,11 @@ const { data } = await useFetch('/api/global/nav')
           />
         </div>
       </div>
-      <div class="right"></div>
+      <div class="right">
+        <ClientOnly>
+          <UtilsDarkModeMonitor />
+        </ClientOnly>
+      </div>
     </div>
   </header>
 </template>
@@ -27,7 +31,7 @@ const { data } = await useFetch('/api/global/nav')
 <style scoped lang="scss">
 header {
   @apply h-[60px];
-  @apply border-b-[1px] border-gray-200;
+  @apply border-b-[1px] border-gray-200 dark:border-[#494949];
 
   .width-limit-wrapper {
     @apply mx-auto;
@@ -44,6 +48,10 @@ header {
 
   .logo {
     @apply h-[22px];
+
+    &:deep(.logo-text) {
+      @apply dark:fill-[#e0e0e0];
+    }
   }
 
   .main-nav {
