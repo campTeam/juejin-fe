@@ -3,34 +3,42 @@ const { data } = await useFetch('/api/global/nav')
 </script>
 
 <template>
-  <header>
-    <div class="width-limit-wrapper">
-      <div class="left">
-        <NuxtLink class="logo" to="/">
-          <Logo />
-        </NuxtLink>
-        <div v-if="data" class="main-nav">
-          <HeaderNavItem
-            v-for="nav of data.data"
-            :key="nav.id"
-            :label="nav.label"
-            :link="nav.link"
-            :badge="nav.badge || ''"
-          />
+  <div class="header-wrapper">
+    <header>
+      <div class="width-limit-wrapper">
+        <div class="left">
+          <NuxtLink class="logo" to="/">
+            <Logo />
+          </NuxtLink>
+          <div v-if="data" class="main-nav">
+            <HeaderNavItem
+              v-for="nav of data.data"
+              :key="nav.id"
+              :label="nav.label"
+              :link="nav.link"
+              :badge="nav.badge || ''"
+            />
+          </div>
+        </div>
+        <div class="right">
+          <ClientOnly>
+            <UtilsDarkModeMonitor />
+          </ClientOnly>
         </div>
       </div>
-      <div class="right">
-        <ClientOnly>
-          <UtilsDarkModeMonitor />
-        </ClientOnly>
-      </div>
-    </div>
-  </header>
+    </header>
+  </div>
 </template>
 
 <style scoped lang="scss">
+.header-wrapper {
+  @apply h-[50px] md:h-[60px];
+}
+
 header {
-  @apply h-[60px];
+  @apply fixed top-0 left-0 right-0 z-10;
+  @apply h-[50px] md:h-[60px];
+  @apply bg-white dark:bg-[#121212];
   @apply border-b-[1px] border-gray-200 dark:border-[#494949];
 
   .width-limit-wrapper {
