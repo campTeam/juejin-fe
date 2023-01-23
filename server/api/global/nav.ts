@@ -8,25 +8,12 @@ interface INavItem {
   inSite: boolean
 }
 
-interface IOriginNavResponse {
-  data: {
-    id: number
-    attributes: {
-      nav: INavItem[]
-      siteName: string
-      createdAt: string
-      updatedAt: string
-      publishedAt: string
-    }
-  }
-}
-
 const { apiEntry } = useRuntimeConfig()
 
 export default defineEventHandler(async () => {
-  const result: IOriginNavResponse = await $fetch('/api/global?populate=nav', {
+  const result = (await $fetch('/api/global?populate=nav', {
     baseURL: apiEntry,
-  })
+  })) as any
 
   return apiResponse<INavItem[]>(result.data.attributes.nav)
 })
