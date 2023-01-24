@@ -18,3 +18,7 @@ html {
 html.dark {
   @apply bg-[#222323] text-white;
 }
+
+body {
+  @apply overflow-y-scroll;
+}
