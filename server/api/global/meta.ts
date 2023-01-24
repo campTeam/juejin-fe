@@ -1,4 +1,4 @@
-import { apiResponse } from '~~/server/utils'
+import { apiResponse, getMediaLink } from '~~/server/utils'
 import qs from 'qs'
 
 interface IMeta {
@@ -45,11 +45,10 @@ export default defineEventHandler(async () => {
 
   return apiResponse<IMeta>({
     siteName: result.data.attributes.siteName,
-    favicon: apiEntry + result.data.attributes.favicon.data.attributes.url,
+    favicon: getMediaLink(result.data.attributes.favicon),
     gadget: {
       ...result.data.attributes.gadget,
-      qrcode:
-        apiEntry + result.data.attributes.gadget.qrcode.data.attributes.url,
+      qrcode: getMediaLink(result.data.attributes.gadget.qrcode),
     },
     leaderboard: result.data.attributes.leaderboard.map((item: any) => {
       return {
@@ -63,7 +62,7 @@ export default defineEventHandler(async () => {
         id: item.id,
         link: item.link,
         summary: item.summary,
-        thumbnail: apiEntry + item.thumbnail.data.attributes.url,
+        thumbnail: getMediaLink(item.thumbnail),
       }
     }),
   })
