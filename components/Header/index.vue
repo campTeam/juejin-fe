@@ -60,6 +60,7 @@ header {
 
     &:deep(.logo-text) {
       @apply dark:fill-[#e0e0e0];
+      @apply hidden sm:block;
     }
   }
 
