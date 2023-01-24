@@ -1,3 +1,11 @@
+<script setup>
+useHead({
+  title: '首页',
+})
+</script>
+
 <template>
-  <p>TODO: 首页</p>
+  <div>
+    <p>TODO: 首页</p>
+  </div>
 </template>
