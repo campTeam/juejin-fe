@@ -14,6 +14,7 @@
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
     "@nuxt/eslint-config": "^0.1.1",
+    "@types/qs": "^6.9.7",
     "@vueuse/core": "^9.11.1",
     "@vueuse/nuxt": "^9.11.1",
     "eslint": "^8.32.0",
@@ -24,6 +25,7 @@
     "nuxt": "^3.0.0",
     "nuxt-windicss": "^2.6.0",
     "prettier": "^2.8.3",
+    "qs": "^6.11.0",
     "sass": "^1.57.1"
   },
   "lint-staged": {
