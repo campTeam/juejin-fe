@@ -10,9 +10,9 @@ const { data } = await useFetch('/api/global/nav')
           <NuxtLink class="logo" to="/">
             <Logo />
           </NuxtLink>
-          <div v-if="data" class="main-nav">
+          <div class="main-nav">
             <HeaderNavItem
-              v-for="nav of data.data"
+              v-for="nav of data!.data"
               :key="nav.id"
               :label="nav.label"
               :link="nav.link"
