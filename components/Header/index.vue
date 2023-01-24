@@ -1,5 +1,15 @@
 <script setup lang="ts">
 const { data } = await useFetch('/api/global/nav')
+const route = useRoute()
+
+// 当前激活的导航项
+const activeNav = computed(() => {
+  return data
+    .value!.data.filter(nav => nav.inSite)
+    .find(nav => route.fullPath === nav.link)
+})
+
+const [isMobileNavShown, toggleMobileNav] = useToggle()
 </script>
 
 <template>
@@ -10,15 +20,29 @@ const { data } = await useFetch('/api/global/nav')
           <NuxtLink class="logo" to="/">
             <Logo />
           </NuxtLink>
-          <div class="main-nav">
-            <HeaderNavItem
-              v-for="nav of data!.data"
-              :key="nav.id"
-              :label="nav.label"
-              :link="nav.link"
-              :badge="nav.badge || ''"
-              :in-site="nav.inSite"
-            />
+          <div class="main-nav-wrapper">
+            <div
+              class="mobile-nav"
+              :class="{ 'mobile-shown': isMobileNavShown }"
+              @click="toggleMobileNav()"
+            >
+              {{ activeNav?.label }}
+              <IconsArrow class="icon" />
+            </div>
+            <div
+              class="main-nav"
+              :class="{ 'mobile-shown': isMobileNavShown }"
+              @click="toggleMobileNav()"
+            >
+              <HeaderNavItem
+                v-for="nav of data!.data"
+                :key="nav.id"
+                :label="nav.label"
+                :link="nav.link"
+                :badge="nav.badge || ''"
+                :in-site="nav.inSite"
+              />
+            </div>
           </div>
         </div>
         <div class="right">
@@ -33,20 +57,20 @@ const { data } = await useFetch('/api/global/nav')
 
 <style scoped lang="scss">
 .header-wrapper {
-  @apply h-[50px] md:h-[60px];
+  @apply h-50px sm:h-60px;
 }
 
 header {
   @apply fixed top-0 left-0 right-0 z-10;
-  @apply h-[50px] md:h-[60px];
+  @apply h-50px sm:h-60px;
   @apply bg-white dark:bg-[#121212];
-  @apply border-b-[1px] border-gray-200 dark:border-[#494949];
+  @apply border-b-1 border-gray-200 dark:border-[#494949];
 
   .width-limit-wrapper {
     @apply mx-auto;
     @apply flex items-center justify-between;
-    @apply px-[12px];
-    @apply max-w-[1416px] h-full;
+    @apply px-12px;
+    @apply max-w-1416px h-full;
   }
 
   .left,
@@ -56,18 +80,67 @@ header {
   }
 
   .logo {
-    @apply h-[22px];
+    @apply h-22px;
 
     &:deep(.logo-text) {
       @apply dark:fill-[#e0e0e0];
-      @apply hidden sm:block;
+      @apply hidden xs:block;
     }
   }
 
-  .main-nav {
-    @apply flex h-full;
-    @apply ml-[24px];
-    @apply gap-x-[22px];
+  .main-nav-wrapper {
+    @apply h-full flex items-center;
+    @apply ml-24px relative;
+
+    .mobile-nav {
+      @apply flex md:hidden;
+      @apply text-primary items-center;
+      @apply select-none cursor-pointer;
+
+      .icon {
+        @apply w-12px h-12px;
+        @apply ml-1;
+        @apply fill-[#515767] dark:fill-[#adb4c6];
+        @apply transform-gpu transition-transform;
+      }
+
+      &.mobile-shown .icon {
+        @apply rotate-180;
+      }
+    }
+
+    .main-nav {
+      @apply flex;
+      @apply h-full;
+      @apply gap-x-22px;
+      @apply flex-col md:flex-row;
+
+      @screen <md {
+        @apply absolute top-49px left-16px p-2 h-auto;
+        @apply border-1 border-gray-200 dark:border-[#494949] rounded-md;
+        @apply shadow-xl shadow-black/10 dark:shadow-white/10;
+        @apply transform-gpu transition origin-top;
+        @apply -translate-x-1/2;
+        @apply bg-white dark:bg-[#121212];
+        @apply scale-y-50 opacity-0;
+        @apply pointer-events-none;
+        &:deep(.nav-item-wrapper) {
+          @apply px-13;
+        }
+        &:deep(.nav-item) {
+          @apply h-11;
+        }
+        &.mobile-shown {
+          @apply scale-y-100 opacity-100;
+          @apply pointer-events-auto;
+        }
+      }
+
+      @screen <xs {
+        @apply -left-65px translate-x-0;
+        @apply rounded-l-none;
+      }
+    }
   }
 }
 </style>
