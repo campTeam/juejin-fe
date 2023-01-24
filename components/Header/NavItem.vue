@@ -22,12 +22,19 @@ defineProps({
 </script>
 
 <template>
-  <NuxtLink v-if="inSite" :to="link" class="nav-item" :data-badge="badge">
-    {{ label }}
-  </NuxtLink>
-  <a v-else :href="link" class="nav-item" :data-badge="badge" target="_blank">{{
-    label
-  }}</a>
+  <div class="nav-item-wrapper">
+    <NuxtLink v-if="inSite" :to="link" class="nav-item" :data-badge="badge">
+      {{ label }}
+    </NuxtLink>
+    <a
+      v-else
+      :href="link"
+      class="nav-item"
+      :data-badge="badge"
+      target="_blank"
+      >{{ label }}</a
+    >
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -37,6 +44,7 @@ defineProps({
   @apply relative;
   @apply opacity-85;
   @apply text-black dark:text-[#e8ecfa];
+  @apply whitespace-nowrap;
 
   &:hover {
     @apply border-b-primary;
