@@ -9,6 +9,11 @@ useHead({
       href: meta.value!.data.favicon,
     },
   ],
+  titleTemplate: titleChunk => {
+    return titleChunk
+      ? `${titleChunk} - ${meta.value!.data.siteName}`
+      : meta.value!.data.siteName
+  },
 })
 
 provide('meta', meta.value!.data)
