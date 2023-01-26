@@ -10,11 +10,27 @@ const activeNav = computed(() => {
 })
 
 const [isMobileNavShown, toggleMobileNav] = useToggle()
+
+const isVisible = ref(true)
+
+if (process.client) {
+  const { directions } = useScroll(document)
+  const checkHeaderStatus = useDebounceFn((_directions: typeof directions) => {
+    if (_directions.top) {
+      isVisible.value = true
+    } else if (_directions.bottom) {
+      isVisible.value = false
+    }
+  }, 50)
+  watch(directions, () => {
+    checkHeaderStatus(directions)
+  })
+}
 </script>
 
 <template>
   <div class="header-wrapper">
-    <header>
+    <header :class="{ visible: isVisible }">
       <div class="width-limit-wrapper">
         <div class="left">
           <NuxtLink class="logo" to="/">
@@ -65,6 +81,12 @@ header {
   @apply h-50px sm:h-60px;
   @apply bg-white dark:bg-[#121212];
   @apply border-b-1 border-gray-200 dark:border-[#494949];
+
+  @apply transform-gpu -translate-y-50px sm:-translate-y-60px transition-transform duration-300;
+
+  &.visible {
+    @apply translate-y-0;
+  }
 
   .width-limit-wrapper {
     @apply mx-auto;

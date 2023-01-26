@@ -17,6 +17,7 @@ html {
 
 html.dark {
   @apply bg-[#222323] text-white;
+  color-scheme: dark;
 }
 
 body {
