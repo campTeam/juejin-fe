@@ -16,13 +16,17 @@ watchEffect(() => {
   if (currentMode.value === 'auto') {
     if (preferredDark.value) {
       document.documentElement.classList.add('dark')
+      setThemeColor('#121212')
     } else {
       document.documentElement.classList.remove('dark')
+      setThemeColor('#ffffff')
     }
   } else if (currentMode.value === 'dark') {
     document.documentElement.classList.add('dark')
+    setThemeColor('#121212')
   } else if (currentMode.value === 'light') {
     document.documentElement.classList.remove('dark')
+    setThemeColor('#ffffff')
   }
   localStorage.setItem('darkMode', currentMode.value)
 })
