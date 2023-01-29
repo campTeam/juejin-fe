@@ -44,7 +44,7 @@ if (process.client) {
 
 <template>
   <div class="wrapper">
-    <div class="head" :class="{ visible: isVisible }">
+    <div class="header" :class="{ visible: isVisible }">
       <nav class="subtab">
         <span
           v-for="(item, index) in subTab"
@@ -66,36 +66,39 @@ if (process.client) {
 
 <style lang="scss" scoped>
 .wrapper {
-  @apply bg-[#f4f5f5] dark:bg-[#333333] w-full h-auto;
+  @apply bg-[#f4f5f5] dark:bg-[#333333] w-full h-auto mt-11;
 }
 
-.head {
+.header {
   @apply w-full h-11 flex justify-center;
   @apply bg-white dark:bg-[#121212];
   @apply border-b-1 border-gray-200 dark:border-[#494949];
-  @apply sticky top-0 duration-300;
+  @apply fixed top-0 z-11;
+  @apply transform-gpu transition-transform duration-300;
+
   &.visible {
-    @apply top-[50px] sm:top-[60px];
+    @apply translate-y-50px sm:translate-y-60px;
   }
 }
 
 .subtab {
-  @apply w-5xl h-full flex justify-start items-center gap-8;
-  @apply overflow-x-scroll;
-  @screen < md {
-    @apply px-1;
-  }
+  @apply max-w-100vw w-5xl h-full;
+  @apply flex justify-start items-center gap-8;
+  @apply px-2;
+  @apply overflow-x-auto;
 
   &::-webkit-scrollbar {
     height: 0;
   }
 
   .subtab-item {
-    @apply text-[15px] flex-none;
+    @apply text-14px sm:text-15px;
     @apply cursor-pointer;
-    @apply text-black dark:text-[#e8ecfa];
-    @apply hover:text-primary;
-    &.active {
+    @apply text-black/80 dark:text-[#81878c];
+    @apply whitespace-nowrap;
+
+    &.active,
+    &:hover {
       @apply text-primary;
     }
   }
