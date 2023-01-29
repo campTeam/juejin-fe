@@ -45,11 +45,11 @@ if (process.client) {
 <template>
   <div class="wrapper">
     <div class="head" :class="{ visible: isVisible }">
-      <nav class="subTab">
+      <nav class="subtab">
         <span
           v-for="(item, index) in subTab"
           :key="index"
-          class="subTabItem"
+          class="subtab-item"
           :class="{ active: subTabIndex === index }"
           @click="subTabIndex = index"
         >
@@ -68,6 +68,7 @@ if (process.client) {
 .wrapper {
   @apply bg-[#f4f5f5] dark:bg-[#333333] w-full h-auto;
 }
+
 .head {
   @apply w-full h-11 flex justify-center;
   @apply bg-white dark:bg-[#121212];
@@ -77,23 +78,26 @@ if (process.client) {
     @apply top-[50px] sm:top-[60px];
   }
 }
-.subTab {
+
+.subtab {
   @apply w-5xl h-full flex justify-start items-center gap-8;
   @apply overflow-x-scroll;
   @screen < md {
     @apply px-1;
   }
-}
-.subTab::-webkit-scrollbar {
-  height: 0;
-}
-.subTabItem {
-  @apply text-[15px] flex-none;
-  @apply cursor-pointer;
-  @apply text-black dark:text-[#e8ecfa];
-  @apply hover:text-primary;
-  &.active {
-    @apply text-primary;
+
+  &::-webkit-scrollbar {
+    height: 0;
+  }
+
+  .subtab-item {
+    @apply text-[15px] flex-none;
+    @apply cursor-pointer;
+    @apply text-black dark:text-[#e8ecfa];
+    @apply hover:text-primary;
+    &.active {
+      @apply text-primary;
+    }
   }
 }
 </style>
