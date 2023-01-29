@@ -64,7 +64,7 @@ if (process.client) {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .wrapper {
   @apply bg-[#f4f5f5] dark:bg-[#333333] w-full h-auto;
 }
