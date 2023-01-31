@@ -93,7 +93,7 @@ header {
   @apply bg-white dark:bg-[#121212];
   @apply border-b-1 border-gray-200 dark:border-[#494949];
 
-  @apply transform-gpu -translate-y-50px sm:-translate-y-60px transition-transform duration-300;
+  @apply transform-gpu -translate-y-50px sm:-translate-y-60px transition-transform;
 
   &.visible {
     @apply translate-y-0;

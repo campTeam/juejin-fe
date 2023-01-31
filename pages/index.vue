@@ -76,7 +76,7 @@ if (process.client) {
   @apply bg-white dark:bg-[#121212];
   @apply border-b-1 border-gray-200 dark:border-[#494949];
   @apply fixed top-0 z-11;
-  @apply transform-gpu transition-transform duration-300;
+  @apply transform-gpu transition-transform;
 
   &.visible {
     @apply translate-y-50px sm:translate-y-60px;
