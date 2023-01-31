@@ -15,36 +15,12 @@ const subTab: string[] = [
   '阅读',
 ]
 const subTabIndex: Ref<number> = ref(0)
-const isVisible: Ref<boolean> = ref(true)
-if (process.client) {
-  const { directions, isScrolling, arrivedState } = useScroll(document)
-  const checkHeaderStatus = useDebounceFn(
-    (top: boolean, bottom: boolean, topArrived: boolean) => {
-      if (topArrived) {
-        // 当滚动到顶部时，避免因为safari的橡皮筋效果导致header闪烁
-        // TODO: 按理说底部也需要判断，但是safari的高度计算存在问题，暂未想到如何解决
-        isVisible.value = true
-        return
-      }
-      if (top) {
-        isVisible.value = true
-      } else if (bottom) {
-        isVisible.value = false
-      }
-    },
-    100
-  )
-  watch(directions, () => {
-    if (isScrolling.value) {
-      checkHeaderStatus(directions.top, directions.bottom, arrivedState.top)
-    }
-  })
-}
+const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
 </script>
 
 <template>
   <div class="wrapper">
-    <div class="header" :class="{ visible: isVisible }">
+    <div class="header" :class="{ visible: isHeaderVisible }">
       <nav class="subtab">
         <span
           v-for="(item, index) in subTab"
