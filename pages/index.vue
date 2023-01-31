@@ -43,24 +43,25 @@ if (process.client) {
 </script>
 
 <template>
-  <div class="wrapper">
-    <div class="header" :class="{ visible: isVisible }">
-      <nav class="subtab">
-        <span
-          v-for="(item, index) in subTab"
-          :key="index"
-          class="subtab-item"
-          :class="{ active: subTabIndex === index }"
-          @click="subTabIndex = index"
-        >
-          {{ item }}
-        </span>
-      </nav>
+  <div>
+    <div class="wrapper">
+      <div class="header" :class="{ visible: isVisible }">
+        <nav class="subtab">
+          <span
+            v-for="(item, index) in subTab"
+            :key="index"
+            class="subtab-item"
+            :class="{ active: subTabIndex === index }"
+            @click="subTabIndex = index"
+          >
+            {{ item }}
+          </span>
+        </nav>
+      </div>
     </div>
-    <p>TODO: 首页</p>
-    <p v-for="i of Array.from({ length: 100 }, (_, i) => i + 1)" :key="i">
-      用于测试滚动的文字12345
-    </p>
+    <div class="mainPage">
+      <Main />
+    </div>
   </div>
 </template>
 
@@ -102,5 +103,10 @@ if (process.client) {
       @apply text-primary;
     }
   }
+}
+
+.mainPage {
+  width: 100%;
+  overflow: hidden;
 }
 </style>
