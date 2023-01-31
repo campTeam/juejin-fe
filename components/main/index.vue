@@ -3,7 +3,7 @@
 <template>
   <div class="main">
     <div class="aside_right">
-      <div v-for="(item, index) in 100" :key="index">文章列表{{ item }}</div>
+      <ArticleList />
     </div>
     <div class="aside_left">
       <MainAside />
@@ -17,7 +17,6 @@
   height: 100%;
   background-color: rgb(244, 245, 245);
   margin: 0 auto;
-  margin-top: 20px;
   display: flex;
   justify-content: space-between;
 }

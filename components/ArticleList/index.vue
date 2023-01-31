@@ -51,7 +51,7 @@ const changeTab = (i: number) => {
 
 <style lang="scss" scoped>
 .article-list {
-  @apply w-full md:w-700px;
+  @apply w-full;
   @apply rounded-sm bg-white dark:bg-[#121212];
 
   .tab {
