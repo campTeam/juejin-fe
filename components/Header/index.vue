@@ -68,7 +68,7 @@ header {
   @apply fixed top-0 left-0 right-0 z-10;
   @apply h-50px sm:h-60px;
   @apply bg-white dark:bg-[#121212];
-  @apply border-b-1 border-gray-200 dark:border-[#494949];
+  @apply border-b-1 border-gray-100 dark:border-[#494949];
 
   @apply transform-gpu -translate-y-50px sm:-translate-y-60px transition-transform;
 

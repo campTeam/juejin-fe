@@ -55,7 +55,7 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
   .header {
     @apply w-full h-11 flex justify-center;
     @apply bg-white dark:bg-[#121212];
-    @apply border-b-1 border-gray-200 dark:border-[#494949];
+    @apply border-b-1 border-gray-100 dark:border-[#494949];
     @apply fixed top-0 z-11;
     @apply transform-gpu transition-transform;
     @apply shadow-sm shadow-black/5;
