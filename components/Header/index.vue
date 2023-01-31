@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import { breakpointsTailwind } from '@vueuse/core'
 import { Ref } from 'vue'
 
 const { data } = await useFetch('/api/global/nav')
 const route = useRoute()
+
+const breakpoints = useBreakpoints(breakpointsTailwind)
+
+const mdAndLarger = breakpoints.greaterOrEqual('md')
 
 // 当前激活的导航项
 const activeNav = computed(() => {
@@ -58,6 +63,13 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
     </header>
   </div>
 </template>
+
+<style>
+.mobile-menu-enter-active,
+.mobile-menu-leave-active {
+  transition: all 0.3s;
+}
+</style>
 
 <style scoped lang="scss">
 .header-wrapper {
@@ -116,6 +128,7 @@ header {
 
       &.mobile-shown .icon {
         @apply rotate-180;
+        @apply fill-primary;
       }
     }
 
@@ -129,11 +142,9 @@ header {
         @apply absolute top-49px left-16px p-2 h-auto;
         @apply border-1 border-gray-200 dark:border-[#494949] rounded-md;
         @apply shadow-xl shadow-black/10 dark:shadow-white/10;
-        @apply transform-gpu transition origin-top;
-        @apply -translate-x-1/2;
+        @apply transform-gpu -translate-x-1/2;
         @apply bg-white dark:bg-[#121212];
-        @apply scale-y-50 opacity-0;
-        @apply pointer-events-none;
+        @apply hidden;
         &:deep(.nav-item-wrapper) {
           @apply px-13;
         }
@@ -141,8 +152,7 @@ header {
           @apply h-11;
         }
         &.mobile-shown {
-          @apply scale-y-100 opacity-100;
-          @apply pointer-events-auto;
+          @apply block;
         }
       }
 
