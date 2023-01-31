@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Ref } from 'vue'
+
 const { data } = await useFetch('/api/global/nav')
 const route = useRoute()
 
@@ -11,37 +13,12 @@ const activeNav = computed(() => {
 
 const [isMobileNavShown, toggleMobileNav] = useToggle()
 
-const isVisible = ref(true)
-
-if (process.client) {
-  const { directions, isScrolling, arrivedState } = useScroll(document)
-  const checkHeaderStatus = useDebounceFn(
-    (top: boolean, bottom: boolean, topArrived: boolean) => {
-      if (topArrived) {
-        // 当滚动到顶部时，避免因为safari的橡皮筋效果导致header闪烁
-        // TODO: 按理说底部也需要判断，但是safari的高度计算存在问题，暂未想到如何解决
-        isVisible.value = true
-        return
-      }
-      if (top) {
-        isVisible.value = true
-      } else if (bottom) {
-        isVisible.value = false
-      }
-    },
-    100
-  )
-  watch(directions, () => {
-    if (isScrolling.value) {
-      checkHeaderStatus(directions.top, directions.bottom, arrivedState.top)
-    }
-  })
-}
+const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
 </script>
 
 <template>
   <div class="header-wrapper">
-    <header :class="{ visible: isVisible }">
+    <header :class="{ visible: isHeaderVisible }">
       <div class="width-limit-wrapper">
         <div class="left">
           <NuxtLink class="logo" to="/">
@@ -91,9 +68,9 @@ header {
   @apply fixed top-0 left-0 right-0 z-10;
   @apply h-50px sm:h-60px;
   @apply bg-white dark:bg-[#121212];
-  @apply border-b-1 border-gray-200 dark:border-[#494949];
+  @apply border-b-1 border-gray-100 dark:border-[#494949];
 
-  @apply transform-gpu -translate-y-50px sm:-translate-y-60px transition-transform duration-300;
+  @apply transform-gpu -translate-y-50px sm:-translate-y-60px transition-transform;
 
   &.visible {
     @apply translate-y-0;
