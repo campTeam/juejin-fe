@@ -14,7 +14,7 @@
     <ul class="list">
       <li v-for="(k, i) in 10" :key="k" class="item">
         <div class="top">
-          <div class="top-item author">掘金将</div>
+          <div class="top-item author">掘金酱</div>
           <div class="top-item time">25天前</div>
           <div class="top-item classification">后端 · GitHub</div>
         </div>
@@ -52,91 +52,94 @@ const changeTab = (i: number) => {
 <style lang="scss" scoped>
 .article-list {
   @apply w-full md:w-700px;
-  background: #ffffff;
-  border-radius: 2px;
+  @apply rounded-sm bg-white dark:bg-[#121212];
+
   .tab {
-    width: 100%;
-    height: 2.875rem;
-    padding: 0.85rem 0.75rem;
-    display: flex;
-    border-bottom: 1px solid #e5e6eb;
+    @apply flex items-center;
+    @apply h-11 w-full px-3;
+    @apply border-b-1 border-gray-100 dark:border-[#292929];
+
     .tab-item {
-      cursor: pointer;
-      padding: 0 0.875rem;
-      font-size: 0.85rem;
-      border-right: 1px solid #eaeaea;
+      @apply text-sm leading-4 text-[#909090];
+      @apply cursor-pointer;
+      @apply px-3.5;
+      @apply border-r-1 border-gray-200 dark:border-[#494949];
+
       &:last-child {
-        border-right: none;
+        @apply border-r-0;
       }
-      &.tab-active {
-        color: #007fff;
+
+      &.tab-active,
+      &:hover {
+        @apply text-primary;
       }
     }
   }
+
   .list {
-    width: 100%;
+    @apply w-full;
+
     .item {
-      padding: 0.75rem 1.25rem 0;
+      @apply pt-3 px-5;
+
       &:last-child .bottom {
-        border-bottom: none;
+        @apply border-b-0;
       }
+
       .top {
-        display: flex;
-        height: 1.375rem;
-        font-size: 0.8rem;
+        @apply flex items-start;
+        @apply h-6 text-0.8em;
+
         .top-item {
-          padding: 0 0.5rem;
-          border-right: 1px solid #e5e6eb;
-          color: #86909c;
+          @apply leading-4 text-[#86909c];
+          @apply px-2;
+          @apply border-r-1 border-gray-200 dark:border-[#494949];
+
           &:first-child {
-            padding-left: 0;
+            @apply pl-0;
           }
+
           &:last-child {
-            border-right: none;
+            @apply border-r-0;
           }
+
           &.author {
-            color: #4e5969;
+            @apply text-[#4e5969] dark:text-[#a9b4c5];
           }
         }
       }
+
       .bottom {
-        display: flex;
-        justify-content: space-between;
-        padding-bottom: 0.75rem;
-        border-bottom: 1px solid #e5e6eb;
+        @apply flex justify-between;
+        @apply pb-3;
+        @apply border-b-1 border-gray-200 dark:border-[#494949];
+
         .left {
-          display: flex;
-          justify-content: flex-start;
-          flex-direction: column;
+          @apply flex flex-col justify-start;
+
           .title {
-            font-weight: 700;
-            font-size: 16px;
-            line-height: 24px;
-            color: #1d2129;
-            width: 100%;
+            @apply font-bold text-[16px];
+            @apply leading-6 text-[#1d2129] dark:text-[#f3f8ff];
+            @apply w-full;
+            @apply text-ellipsis overflow-hidden;
             display: -webkit-box;
-            overflow: hidden;
-            text-overflow: ellipsis;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 1;
           }
+
           .content {
-            margin-top: 0.5rem;
-            color: #86909c;
-            font-size: 13px;
-            line-height: 22px;
+            @apply mt-2;
+            @apply text-[#86909c] text-14px leading-22px;
+            @apply text-ellipsis overflow-hidden;
             display: -webkit-box;
-            overflow: hidden;
-            text-overflow: ellipsis;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
           }
         }
+
         .right {
-          margin-left: 24px;
-          border-radius: 2px;
-          width: 120px;
-          height: 80px;
+          @apply ml-6;
+          @apply rounded-sm w-120px h-80px;
         }
       }
     }
