@@ -20,18 +20,20 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
 
 <template>
   <div class="wrapper">
-    <div class="header" :class="{ visible: isHeaderVisible }">
-      <nav class="subtab">
-        <span
-          v-for="(item, index) in subTab"
-          :key="index"
-          class="subtab-item"
-          :class="{ active: subTabIndex === index }"
-          @click="subTabIndex = index"
-        >
-          {{ item }}
-        </span>
-      </nav>
+    <div class="header-wrapper">
+      <div class="header" :class="{ visible: isHeaderVisible }">
+        <nav class="subtab">
+          <span
+            v-for="(item, index) in subTab"
+            :key="index"
+            class="subtab-item"
+            :class="{ active: subTabIndex === index }"
+            @click="subTabIndex = index"
+          >
+            {{ item }}
+          </span>
+        </nav>
+      </div>
     </div>
     <!-- <p>TODO: 首页</p>
     <p v-for="i of Array.from({ length: 100 }, (_, i) => i + 1)" :key="i">
@@ -44,40 +46,44 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
 
 <style lang="scss" scoped>
 .wrapper {
-  @apply bg-[#f4f5f5] dark:bg-[#333333] w-full h-auto mt-11;
+  @apply bg-[#f4f5f5] dark:bg-[#333333] w-full h-auto pt-4;
 }
 
-.header {
-  @apply w-full h-11 flex justify-center;
-  @apply bg-white dark:bg-[#121212];
-  @apply border-b-1 border-gray-200 dark:border-[#494949];
-  @apply fixed top-0 z-11;
-  @apply transform-gpu transition-transform;
+.header-wrapper {
+  @apply h-11;
 
-  &.visible {
-    @apply translate-y-50px sm:translate-y-60px;
-  }
-}
+  .header {
+    @apply w-full h-11 flex justify-center;
+    @apply bg-white dark:bg-[#121212];
+    @apply border-b-1 border-gray-200 dark:border-[#494949];
+    @apply fixed top-0 z-11;
+    @apply transform-gpu transition-transform;
 
-.subtab {
-  @apply max-w-100vw w-5xl h-full;
-  @apply flex justify-start items-center gap-8;
-  @apply px-2;
-  @apply overflow-x-auto;
+    &.visible {
+      @apply translate-y-50px sm:translate-y-60px;
+    }
 
-  &::-webkit-scrollbar {
-    height: 0;
-  }
+    .subtab {
+      @apply max-w-100vw w-5xl h-full;
+      @apply flex justify-start items-center gap-8;
+      @apply px-2;
+      @apply overflow-x-auto;
 
-  .subtab-item {
-    @apply text-14px sm:text-15px;
-    @apply cursor-pointer;
-    @apply text-black/80 dark:text-[#81878c];
-    @apply whitespace-nowrap;
+      &::-webkit-scrollbar {
+        height: 0;
+      }
 
-    &.active,
-    &:hover {
-      @apply text-primary;
+      .subtab-item {
+        @apply text-14px sm:text-15px;
+        @apply cursor-pointer;
+        @apply text-black/80 dark:text-[#81878c];
+        @apply whitespace-nowrap;
+
+        &.active,
+        &:hover {
+          @apply text-primary;
+        }
+      }
     }
   }
 }
