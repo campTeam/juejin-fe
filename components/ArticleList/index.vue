@@ -52,18 +52,18 @@ const changeTab = (i: number) => {
 <style lang="scss" scoped>
 .article-list {
   @apply w-full md:w-700px;
-  @apply bg-white rounded-sm;
+  @apply rounded-sm bg-white dark:bg-[#121212];
 
   .tab {
     @apply flex items-center;
     @apply h-11 w-full px-3;
-    @apply border-b-1 border-gray-100;
+    @apply border-b-1 border-gray-100 dark:border-[#292929];
 
     .tab-item {
-      @apply text-[#909090] text-sm leading-4;
+      @apply text-sm leading-4 text-[#909090];
       @apply cursor-pointer;
       @apply px-3.5;
-      @apply border-r-1 border-gray-200;
+      @apply border-r-1 border-gray-200 dark:border-[#494949];
 
       &:last-child {
         @apply border-r-0;
@@ -93,7 +93,7 @@ const changeTab = (i: number) => {
         .top-item {
           @apply leading-4 text-[#86909c];
           @apply px-2;
-          @apply border-r-1 border-gray-200;
+          @apply border-r-1 border-gray-200 dark:border-[#494949];
 
           &:first-child {
             @apply pl-0;
@@ -104,7 +104,7 @@ const changeTab = (i: number) => {
           }
 
           &.author {
-            @apply text-[#4e5969];
+            @apply text-[#4e5969] dark:text-[#a9b4c5];
           }
         }
       }
@@ -112,14 +112,14 @@ const changeTab = (i: number) => {
       .bottom {
         @apply flex justify-between;
         @apply pb-3;
-        @apply border-b-1 border-gray-200;
+        @apply border-b-1 border-gray-200 dark:border-[#494949];
 
         .left {
           @apply flex flex-col justify-start;
 
           .title {
             @apply font-bold text-[16px];
-            @apply leading-6 text-[#1d2129];
+            @apply leading-6 text-[#1d2129] dark:text-[#f3f8ff];
             @apply w-full;
             @apply text-ellipsis overflow-hidden;
             display: -webkit-box;
@@ -129,7 +129,7 @@ const changeTab = (i: number) => {
 
           .content {
             @apply mt-2;
-            @apply text-[#86909c] text-13px leading-22px;
+            @apply text-[#86909c] text-14px leading-22px;
             @apply text-ellipsis overflow-hidden;
             display: -webkit-box;
             -webkit-box-orient: vertical;
