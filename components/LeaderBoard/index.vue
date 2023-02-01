@@ -38,7 +38,7 @@ a:hover {
 }
 
 .author_list {
-  @apply bg-white h-295px;
+  @apply bg-white h-295px dark:bg-[#121212];
   width: 100%;
 }
 .author_text {
