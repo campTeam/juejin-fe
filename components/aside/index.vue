@@ -5,10 +5,8 @@
     <div class="aside-right">
       <slot></slot>
     </div>
-    <div class="aside-left">
-      <slot name="aside">
-        <MainAside />
-      </slot>
+    <div v-if="$slots.aside" class="aside-left">
+      <slot name="aside"></slot>
     </div>
   </div>
 </template>
@@ -26,6 +24,7 @@
     @apply flex-shrink-0;
     @apply w-240px block;
     @apply ml-5;
+    @apply space-y-4.2;
 
     @media (max-width: 960px) {
       @apply hidden;

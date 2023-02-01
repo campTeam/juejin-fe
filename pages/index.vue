@@ -35,12 +35,15 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
         </nav>
       </div>
     </div>
-    <Main>
+    <Aside>
       <ArticleList />
       <template #aside>
-        <MainAside />
+        <Ads />
+        <AppPublicity />
+        <LeaderBoard />
+        <Footer />
       </template>
-    </Main>
+    </Aside>
   </div>
 </template>
 
