@@ -1,7 +1,7 @@
 import { apiResponse, getMediaLink } from '~~/server/utils'
 import qs from 'qs'
 
-interface IMeta {
+export interface IMeta {
   siteName: string
   favicon: string
   gadget: {
@@ -9,10 +9,12 @@ interface IMeta {
     title: string
     subtitle: string
     link: string
+    qrcode: string
   }
   leaderboard: {
     id: number
     name: string
+    avatar: string
     motto: string
   }[]
   ads: {
@@ -31,6 +33,7 @@ export default defineEventHandler(async () => {
       populate: [
         'gadget.qrcode',
         'leaderboard.writer',
+        'leaderboard.writer.avatar',
         'favicon',
         'ads.thumbnail',
         'siteName',
@@ -55,6 +58,7 @@ export default defineEventHandler(async () => {
         id: item.writer.id,
         name: item.writer.data.attributes.name,
         motto: item.writer.data.attributes.motto,
+        avatar: getMediaLink(item.writer.data.attributes.avatar),
       }
     }),
     ads: result.data.attributes.ads.map((item: any) => {
