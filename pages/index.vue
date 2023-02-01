@@ -65,7 +65,7 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
     }
 
     .subtab {
-      @apply max-w-100vw w-5xl h-full;
+      @apply max-w-100vw w-972px h-full;
       @apply flex justify-start items-center gap-8;
       @apply px-2;
       @apply overflow-x-auto;
