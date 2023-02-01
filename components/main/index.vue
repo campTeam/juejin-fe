@@ -15,21 +15,21 @@
 
 <style lang="scss" scoped>
 .main {
-  max-width: 960px;
-  height: 100%;
-  background-color: rgb(244, 245, 245);
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-}
-.aside-right {
-  width: 700px;
-  background-color: #ffffff;
-  padding: 12px 20px;
-}
+  @apply max-w-960px m-x-auto;
+  @apply flex justify-between;
 
-.aside-left {
-  width: 240px;
-  background-color: rgb(244, 245, 245);
+  .aside-right {
+    @apply flex-grow;
+  }
+
+  .aside-left {
+    @apply flex-shrink-0;
+    @apply w-240px block;
+    @apply ml-5;
+
+    @media (max-width: 960px) {
+      @apply hidden;
+    }
+  }
 }
 </style>
