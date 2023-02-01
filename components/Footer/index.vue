@@ -14,6 +14,7 @@ const more_link = {
 </script>
 
 <template>
+  <!-- TODO: footer 目前未完成 -->
   <div class="details">
     <ul class="more_list">
       <li v-for="(val, key) in more_link" :key="key">
