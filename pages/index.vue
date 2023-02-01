@@ -35,9 +35,12 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
         </nav>
       </div>
     </div>
-    <div class="mainPage">
-      <Main />
-    </div>
+    <Main>
+      <ArticleList />
+      <template #aside>
+        <MainAside />
+      </template>
+    </Main>
   </div>
 </template>
 
@@ -84,10 +87,5 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
       }
     }
   }
-}
-
-.mainPage {
-  width: 100%;
-  overflow: hidden;
 }
 </style>

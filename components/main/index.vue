@@ -3,10 +3,12 @@
 <template>
   <div class="main">
     <div class="aside_right">
-      <ArticleList />
+      <slot></slot>
     </div>
     <div class="aside_left">
-      <MainAside />
+      <slot name="aside">
+        <MainAside />
+      </slot>
     </div>
   </div>
 </template>
