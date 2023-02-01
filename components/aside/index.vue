@@ -43,7 +43,9 @@ onMounted(() => {
             top: `${offset}px`,
           }"
         >
-          <slot name="asideFloat"></slot>
+          <div class="transform-controller">
+            <slot name="asideFloat"></slot>
+          </div>
         </div>
       </Transition>
     </div>
@@ -75,11 +77,15 @@ onMounted(() => {
 
   .aside-left-float {
     @apply fixed w-240px;
-    @apply space-y-4.2;
     @apply mt-6;
-    @apply transition-transform transform-gpu;
 
-    &.header-offset {
+    .transform-controller {
+      // 这个 div 仅仅是为了防止 transform 过渡影响到 Vue 的 Transition 组件
+      @apply space-y-4.2;
+      @apply transform-gpu transition-transform;
+    }
+
+    &.header-offset .transform-controller {
       @apply translate-y-50px sm:translate-y-60px;
     }
   }
