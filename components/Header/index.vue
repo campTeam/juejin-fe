@@ -1,13 +1,8 @@
 <script setup lang="ts">
-import { breakpointsTailwind } from '@vueuse/core'
 import { Ref } from 'vue'
 
 const { data } = await useFetch('/api/global/nav')
 const route = useRoute()
-
-const breakpoints = useBreakpoints(breakpointsTailwind)
-
-const mdAndLarger = breakpoints.greaterOrEqual('md')
 
 // 当前激活的导航项
 const activeNav = computed(() => {
