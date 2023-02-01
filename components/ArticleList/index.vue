@@ -12,7 +12,7 @@
       </li>
     </ul>
     <ul class="list">
-      <li v-for="(k, i) in 10" :key="k" class="item">
+      <li v-for="(k, i) in 30" :key="k" class="item">
         <div class="top">
           <div class="top-item author">掘金酱</div>
           <div class="top-item time">25天前</div>

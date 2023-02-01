@@ -79,7 +79,4 @@ a:hover {
   font-size: 12px;
   color: #9aa3ab;
 }
-.more_list li {
-  @apply float-left;
-}
 </style>
