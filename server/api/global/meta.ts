@@ -1,7 +1,7 @@
 import { apiResponse, getMediaLink } from '~~/server/utils'
 import qs from 'qs'
 
-interface IMeta {
+export interface IMeta {
   siteName: string
   favicon: string
   gadget: {
@@ -9,6 +9,7 @@ interface IMeta {
     title: string
     subtitle: string
     link: string
+    qrcode: string
   }
   leaderboard: {
     id: number
