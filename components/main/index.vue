@@ -2,10 +2,10 @@
 
 <template>
   <div class="main">
-    <div class="aside_right">
+    <div class="aside-right">
       <slot></slot>
     </div>
-    <div class="aside_left">
+    <div class="aside-left">
       <slot name="aside">
         <MainAside />
       </slot>
@@ -22,13 +22,13 @@
   display: flex;
   justify-content: space-between;
 }
-.aside_right {
+.aside-right {
   width: 700px;
   background-color: #ffffff;
   padding: 12px 20px;
 }
 
-.aside_left {
+.aside-left {
   width: 240px;
   background-color: rgb(244, 245, 245);
 }
