@@ -39,7 +39,7 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
       <ArticleList />
       <template #aside>
         <Ads />
-        <AppPublicity />
+        <AppGadget />
         <LeaderBoard />
         <Footer />
       </template>

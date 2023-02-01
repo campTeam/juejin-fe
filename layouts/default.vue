@@ -1,12 +1,6 @@
 <template>
-  <div class="bg">
+  <div>
     <Header />
     <slot />
   </div>
 </template>
-
-<style scoped>
-.bg {
-  background-color: rgb(244, 245, 245);
-}
-</style>
