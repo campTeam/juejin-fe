@@ -23,3 +23,13 @@ html.dark {
 body {
   @apply overflow-y-scroll;
 }
+
+.fade-enter-active,
+.fade-leave-active {
+  @apply transition-opacity;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  @apply opacity-0;
+}

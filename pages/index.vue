@@ -35,12 +35,19 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
         </nav>
       </div>
     </div>
-    <!-- <p>TODO: 首页</p>
-    <p v-for="i of Array.from({ length: 100 }, (_, i) => i + 1)" :key="i">
-      用于测试滚动的文字
-    </p> -->
-
-    <ArticleList></ArticleList>
+    <Aside :offset="40">
+      <ArticleList />
+      <template #aside>
+        <Ads />
+        <AppGadget />
+        <LeaderBoard />
+        <Footer />
+      </template>
+      <template #asideFloat>
+        <Ads />
+        <AppGadget />
+      </template>
+    </Aside>
   </div>
 </template>
 
@@ -56,7 +63,7 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
     @apply w-full h-11 flex justify-center;
     @apply bg-white dark:bg-[#121212];
     @apply border-b-1 border-gray-100 dark:border-[#494949];
-    @apply fixed top-0 z-11;
+    @apply fixed top-0 z-9;
     @apply transform-gpu transition-transform;
     @apply shadow-sm shadow-black/5 dark:shadow-white/5;
 
@@ -65,7 +72,7 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
     }
 
     .subtab {
-      @apply max-w-100vw w-5xl h-full;
+      @apply max-w-100vw w-972px h-full;
       @apply flex justify-start items-center gap-8;
       @apply px-2;
       @apply overflow-x-auto;
