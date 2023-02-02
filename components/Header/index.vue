@@ -59,6 +59,13 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
   </div>
 </template>
 
+<style>
+.mobile-menu-enter-active,
+.mobile-menu-leave-active {
+  transition: all 0.3s;
+}
+</style>
+
 <style scoped lang="scss">
 .header-wrapper {
   @apply h-50px sm:h-60px;
@@ -116,6 +123,7 @@ header {
 
       &.mobile-shown .icon {
         @apply rotate-180;
+        @apply fill-primary;
       }
     }
 
@@ -129,11 +137,9 @@ header {
         @apply absolute top-49px left-16px p-2 h-auto;
         @apply border-1 border-gray-200 dark:border-[#494949] rounded-md;
         @apply shadow-xl shadow-black/10 dark:shadow-white/10;
-        @apply transform-gpu transition origin-top;
-        @apply -translate-x-1/2;
+        @apply transform-gpu -translate-x-1/2;
         @apply bg-white dark:bg-[#121212];
-        @apply scale-y-50 opacity-0;
-        @apply pointer-events-none;
+        @apply hidden;
         &:deep(.nav-item-wrapper) {
           @apply px-13;
         }
@@ -141,8 +147,7 @@ header {
           @apply h-11;
         }
         &.mobile-shown {
-          @apply scale-y-100 opacity-100;
-          @apply pointer-events-auto;
+          @apply block;
         }
       }
 

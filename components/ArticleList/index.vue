@@ -12,7 +12,7 @@
       </li>
     </ul>
     <ul class="list">
-      <li v-for="(k, i) in 10" :key="k" class="item">
+      <li v-for="(k, i) in 30" :key="k" class="item">
         <div class="top">
           <ArticleListHoverBox class="top-item">
             <template #main>
@@ -71,7 +71,7 @@ const changeTab = (i: number) => {
 
 <style lang="scss" scoped>
 .article-list {
-  @apply w-full md:w-700px;
+  @apply w-full;
   @apply rounded-sm bg-white dark:bg-[#121212];
 
   .tab {
