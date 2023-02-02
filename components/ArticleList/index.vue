@@ -14,9 +14,29 @@
     <ul class="list">
       <li v-for="(k, i) in 10" :key="k" class="item">
         <div class="top">
-          <div class="top-item author">掘金酱</div>
+          <ArticleListHoverBox class="top-item">
+            <template #main>
+              <div class="author">掘金酱</div>
+            </template>
+            <template #box>
+              <div class="author-detail">
+                <img
+                  src="https://p3-passport.byteimg.com/img/user-avatar/a87f08adcd0dad907726396180915552~100x100.awebp"
+                  class="left"
+                />
+                <div class="right">
+                  <div class="name">作者名字作者名字作者名字作者名字</div>
+                  <div class="detail">
+                    作者的简介作者的简介作者的简介作者的简介
+                  </div>
+                </div>
+              </div>
+            </template>
+          </ArticleListHoverBox>
           <div class="top-item time">25天前</div>
-          <div class="top-item classification">后端 · GitHub</div>
+          <div class="top-item tag">
+            {{ ['后端', 'GitHub', '掘金'].join(' · ') }}
+          </div>
         </div>
         <div class="bottom">
           <div class="left">
@@ -81,7 +101,10 @@ const changeTab = (i: number) => {
 
     .item {
       @apply pt-3 px-5;
-
+      &:hover {
+        @apply bg-[#fafafa] dark:bg-[#252525];
+        cursor: pointer;
+      }
       &:last-child .bottom {
         @apply border-b-0;
       }
@@ -102,9 +125,48 @@ const changeTab = (i: number) => {
           &:last-child {
             @apply border-r-0;
           }
-
-          &.author {
-            @apply text-[#4e5969] dark:text-[#a9b4c5];
+        }
+        .author {
+          @apply text-[#4e5969] dark:text-[#a9b4c5];
+          &:hover {
+            @apply text-primary;
+          }
+        }
+        .author-detail {
+          display: flex;
+          width: 200px;
+          padding: 10px;
+          @apply bg-[#ffffff] dark:bg-[#333333];
+          border-radius: 5px;
+          .left {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+          }
+          .right {
+            width: 100px;
+            margin-left: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            .name {
+              font-size: 16px;
+              color: black;
+              @apply dark:text-white;
+              display: -webkit-box;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 1;
+            }
+            .detail {
+              font-size: 12px;
+              display: -webkit-box;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 1;
+            }
           }
         }
       }
@@ -119,7 +181,7 @@ const changeTab = (i: number) => {
 
           .title {
             @apply font-bold text-[16px];
-            @apply leading-6 text-[#1d2129] dark:text-[#f3f8ff];
+            @apply leading-6 text-[#1d2129] dark:text-[#c8cbd7];
             @apply w-full;
             @apply text-ellipsis overflow-hidden;
             display: -webkit-box;
