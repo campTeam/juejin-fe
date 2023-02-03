@@ -138,7 +138,7 @@ const changeTab = (i: number) => {
             @apply font-bold text-[16px];
             @apply leading-6 text-[#1d2129] dark:text-[#c8cbd7];
             @apply w-full;
-            @apply text-ellipsis overflow-hidden;
+            @apply overflow-ellipsis overflow-hidden;
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 1;
@@ -147,7 +147,7 @@ const changeTab = (i: number) => {
           .content {
             @apply mt-2;
             @apply text-[#86909c] text-14px leading-22px;
-            @apply text-ellipsis overflow-hidden;
+            @apply overflow-ellipsis overflow-hidden;
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;

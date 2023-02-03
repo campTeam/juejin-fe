@@ -136,14 +136,14 @@ const offectBox = () => {
 
       .name {
         @apply text-16px mb-3;
-        @apply overflow-hidden text-ellipsis text-black dark:text-white/90;
+        @apply overflow-hidden overflow-ellipsis text-black dark:text-white/90;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 1;
       }
 
       .detail {
-        @apply text-gray-400 text-12px overflow-hidden text-ellipsis;
+        @apply text-gray-400 text-12px overflow-hidden overflow-ellipsis;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 1;
