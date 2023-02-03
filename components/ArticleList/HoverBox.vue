@@ -27,9 +27,7 @@
             '--tw-translate-x': `calc(-50% + ${arrowOffset}px)`,
           }"
         >
-          <!-- 箭头主体 -->
           <path class="arrow-bg" d="M 0 0 L 10 10 L 20 0 Z" />
-          <!-- 腰线描边 -->
           <path class="arrow-stroke" d="M 0 0 L 10 10 L 20 0" />
         </svg>
       </div>
@@ -111,13 +109,13 @@ const offectBox = () => {
   boxX.value = Math.max(10, _boxX)
   boxY.value = boxDirection.value ? _boxYTop : _boxYBottom
   arrowOffset.value = _boxX - boxX.value
-  console.log(arrowOffset.value)
 }
 </script>
 
 <style lang="scss" scoped>
 .box {
   @apply fixed z-22;
+
   filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.1));
   @variants dark {
     filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
@@ -138,17 +136,14 @@ const offectBox = () => {
 
       .name {
         @apply text-16px mb-3;
-        @apply text-black dark:text-white/90;
-        @apply overflow-hidden text-ellipsis;
+        @apply overflow-hidden text-ellipsis text-black dark:text-white/90;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 1;
       }
 
       .detail {
-        @apply text-12px;
-        @apply overflow-hidden text-ellipsis;
-        @apply text-gray-400;
+        @apply text-gray-400 text-12px overflow-hidden text-ellipsis;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 1;
