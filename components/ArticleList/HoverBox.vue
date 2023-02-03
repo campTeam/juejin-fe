@@ -1,131 +1,180 @@
 <template>
-  <!-- 问题: 插槽 main 的外层会多一个div包裹，影响dom结构  -->
-  <div
-    class="HoverBox"
-    @mouseenter="
-      () => {
-        enter()
-      }
-    "
-    @mouseleave="leave"
-  >
-    <!-- 包裹的内容 -->
-    <slot name="main"> </slot>
-    <!-- 鼠标悬浮后展示的弹窗 -->
-    <div
-      v-if="show"
-      ref="boxRef"
-      class="box"
-      :class="[
-        topType ? 'box-top' : 'box-bottom',
-        animateClass ? 'comein' : '',
-      ]"
-      @mouseenter="enter(true)"
-      @mouseleave="leave"
-    >
-      <slot name="box"> </slot>
-      <span
-        class="arrow"
-        :class="topType ? 'arrow-top' : 'arrow-bottom'"
-      ></span>
-    </div>
-  </div>
+  <!-- 包裹的内容 -->
+  <slot :set-slot-ref="setSlotRef"></slot>
+  <!-- 鼠标悬浮后展示的弹窗 -->
+  <Teleport to="body">
+    <Transition name="fade">
+      <div
+        v-if="isBoxShown"
+        ref="boxRef"
+        class="box"
+        :class="[boxDirection ? 'box-top' : 'box-bottom']"
+        :style="{ top: `${boxY}px`, left: `${boxX}px` }"
+        @mouseenter="enter(true)"
+        @mouseleave="leave()"
+      >
+        <div class="writer-detail">
+          <img :src="writerAvatar" class="left" />
+          <div class="right">
+            <div class="name">{{ writerName }}</div>
+            <div class="detail">{{ writerMotto }}</div>
+          </div>
+        </div>
+        <!-- 弹出层箭头 -->
+        <svg
+          class="arrow"
+          :class="boxDirection ? 'arrow-top' : 'arrow-bottom'"
+          :style="{
+            '--tw-translate-x': `calc(-50% + ${arrowOffset}px)`,
+          }"
+        >
+          <!-- 箭头主体 -->
+          <path class="arrow-bg" d="M 0 0 L 10 10 L 20 0 Z" />
+          <!-- 腰线描边 -->
+          <path class="arrow-stroke" d="M 0 0 L 10 10 L 20 0" />
+        </svg>
+      </div>
+    </Transition>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
-import { Ref, nextTick } from 'vue'
+import { Ref } from 'vue'
 
-const boxRef = ref<HTMLInputElement | null>(null) //悬浮窗的dom，用于调整弹窗位置，防止弹出屏幕边缘
-const show: Ref<boolean> = ref(false) //弹出层是否显示
-const topType: Ref<boolean> = ref(true) //弹出层在上还是在下，上true 下false
-const animateClass: Ref<boolean> = ref(false) //渐入渐出效果，用transition和类名
+const boxRef = ref<HTMLElement | null>(null) // 弹出层的元素引用，用于调整弹窗位置，防止弹出屏幕边缘
+const isBoxShown: Ref<boolean> = ref(false) // 弹出层是否显示
+const boxDirection: Ref<boolean> = ref(true) // 弹出层在上还是在下，上true 下false
+const boxX = ref(0) // 弹出层的x坐标
+const boxY = ref(0) // 弹出层的y坐标
+const arrowOffset = ref(0) // 箭头的偏移量
 
-//#region  鼠标进入离开事件
-let timer: number //控制关闭弹窗效果
-let timer2: number //控制打开弹窗效果
+const slotRef = ref<any>(null) // 插槽的元素引用
+const setSlotRef = (ref: any) => {
+  slotRef.value = ref
+}
+
+defineProps<{
+  writerName: string
+  writerMotto: string
+  writerAvatar: string
+}>()
+
+watch(slotRef, (newEl, oldEl) => {
+  if (newEl) {
+    // 监听插槽的变化，当鼠标进入插槽元素时，显示弹出层
+    newEl.addEventListener('mouseenter', enter)
+    newEl.addEventListener('mouseleave', leave)
+  }
+  if (oldEl) {
+    // 移除旧的监听
+    oldEl.removeEventListener('mouseenter', enter)
+    oldEl.removeEventListener('mouseleave', leave)
+  }
+})
+
+// #region 鼠标进入离开事件
+let timer: number // 控制关闭弹窗效果
+let timer2: number // 控制打开弹窗效果
 const enter = async (flag?: boolean) => {
   clearTimeout(timer)
   timer2 = window.setTimeout(async () => {
-    show.value = true
-    if (flag == true) return //如果传递了标识true，则不继续往下执行
+    isBoxShown.value = true
+    if (flag == true) return // 如果传递了标识true，则不继续往下执行
     await nextTick()
-    animateClass.value = true //盒子透明度变为1
-    offectBox() //修正盒子位置
-  }, 300) //300ms内移出了就不弹出
+    offectBox() // 修正盒子位置
+  }, 300) // 300ms内移出了就不弹出
 }
 const leave = () => {
   clearTimeout(timer)
   clearTimeout(timer2)
   timer = window.setTimeout(() => {
-    // console.log('离开')
-    animateClass.value = false //盒子透明度变为0
-    show.value = false //关闭盒子显示
-    topType.value = true //朝向设置回默认值
-  }, 300) //离开盒子300ms后才进行关闭动作
+    isBoxShown.value = false // 关闭盒子显示
+    boxDirection.value = true // 朝向设置回默认值
+  }, 300) // 离开盒子300ms后才进行关闭动作
 }
-//#endregion
+// #endregion
 
-//修正盒子位置
+// 修正盒子位置
 const offectBox = () => {
-  const position: any = boxRef.value?.getBoundingClientRect()
-  //   console.log(position)
-  if (position.left < 0) {
-    //如果盒子左侧超过屏幕边缘，则修正位置
-    ;(boxRef.value as HTMLInputElement).style.marginLeft = -position.left + 'px'
+  const slotRect: any = slotRef.value?.getBoundingClientRect()
+  const boxRect: any = boxRef.value?.getBoundingClientRect()
+  const _boxX = slotRect.x + slotRect.width / 2 - boxRect.width / 2
+  const _boxYTop = slotRect.y - boxRect.height - 10
+  const _boxYBottom = slotRect.y + slotRect.height + 10
+
+  // 如果弹窗超出屏幕边缘，则朝下弹出
+  if (_boxYTop < 0) {
+    boxDirection.value = false
+  } else {
+    boxDirection.value = true
   }
-  if (position.top < 0) {
-    //如果盒子上侧超过屏幕，则换为朝下的布局
-    topType.value = false
-  }
+
+  boxX.value = Math.max(10, _boxX)
+  boxY.value = boxDirection.value ? _boxYTop : _boxYBottom
+  arrowOffset.value = _boxX - boxX.value
+  console.log(arrowOffset.value)
 }
 </script>
 
 <style lang="scss" scoped>
-.HoverBox {
-  display: inline-block;
-  position: relative;
-  .box {
-    position: absolute;
-    left: 50%;
-    border-radius: 5px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.226);
-    z-index: 99;
-    cursor: default;
-    opacity: 0;
-    transition: opacity 0.8s;
-    @apply dark:shadow-lg dark:shadow-white/5;
-    &.box-top {
-      top: 0;
-      transform: translate(-50%, calc(-100% - 10px)); //加上了三角形高度
+.box {
+  @apply fixed z-22;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.1));
+  @variants dark {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+  }
+
+  .writer-detail {
+    @apply flex p-10px rounded-md;
+    @apply bg-[#ffffff] dark:bg-[#121212];
+    @apply border-1 border-gray-200 dark:border-[#494949];
+
+    .left {
+      @apply w-12 h-12 rounded-full;
     }
-    &.box-bottom {
-      bottom: 0;
-      transform: translate(-50%, calc(100% + 10px)); //加上了三角形高度
-    }
-    &.comein {
-      opacity: 1;
-    }
-    .arrow {
-      position: absolute;
-      left: 50%;
-      width: 0;
-      height: 0;
-      line-height: 0;
-      font-size: 0;
-      @apply border-10 border-[#ffffff];
-      @apply dark:border-[#333333];
-      &.arrow-top {
-        bottom: 1px;
-        transform: translate(-50%, 100%);
-        @apply border-l-transparent border-r-transparent border-b-transparent;
-        @apply dark:border-l-transparent dark:border-r-transparent dark:border-b-transparent;
+
+    .right {
+      @apply min-w-100px max-w-200px ml-10px;
+      @apply flex flex-col justify-center;
+
+      .name {
+        @apply text-16px mb-3;
+        @apply text-black dark:text-white/90;
+        @apply overflow-hidden text-ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
       }
-      &.arrow-bottom {
-        top: 1px;
-        transform: translate(-50%, -100%);
-        @apply border-l-transparent border-r-transparent border-t-transparent;
-        @apply dark:border-l-transparent dark:border-r-transparent dark:border-t-transparent;
+
+      .detail {
+        @apply text-12px;
+        @apply overflow-hidden text-ellipsis;
+        @apply text-gray-400;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
       }
+    }
+  }
+
+  .arrow {
+    @apply absolute left-1/2 w-20px h-10px;
+    @apply transform-gpu;
+
+    .arrow-bg {
+      @apply fill-white dark:fill-[#121212];
+    }
+
+    .arrow-stroke {
+      @apply stroke-gray-200 dark:stroke-[#494949] fill-none;
+    }
+
+    &.arrow-top {
+      @apply bottom-1px translate-y-full;
+    }
+
+    &.arrow-bottom {
+      @apply top-1px -translate-y-full rotate-180;
     }
   }
 }
