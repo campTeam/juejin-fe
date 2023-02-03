@@ -12,11 +12,20 @@
       </li>
     </ul>
     <ul class="list">
-      <li v-for="(k, i) in 30" :key="k" class="item">
+      <li v-for="k of 30" :key="k" class="item">
         <div class="top">
-          <div class="top-item author">掘金酱</div>
+          <ArticleListHoverBox
+            v-slot="{ setSlotRef }"
+            writer-name="掘金酱"
+            writer-motto="测试内容"
+            writer-avatar="https://p3-passport.byteimg.com/img/user-avatar/a87f08adcd0dad907726396180915552~100x100.awebp"
+          >
+            <div :ref="setSlotRef" class="top-item author">掘金酱</div>
+          </ArticleListHoverBox>
           <div class="top-item time">25天前</div>
-          <div class="top-item classification">后端 · GitHub</div>
+          <div class="top-item tag">
+            {{ ['后端', 'GitHub', '掘金'].join(' · ') }}
+          </div>
         </div>
         <div class="bottom">
           <div class="left">
@@ -28,7 +37,7 @@
             </div>
           </div>
           <img
-            v-if="i % 2 == 0"
+            v-if="k % 2 == 0"
             src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bb72413461364175af5edf2a1fae4446~tplv-k3u1fbpfcp-no-mark:240:240:240:160.awebp?"
             alt=""
             class="right"
@@ -81,7 +90,10 @@ const changeTab = (i: number) => {
 
     .item {
       @apply pt-3 px-5;
-
+      &:hover {
+        @apply bg-[#fafafa] dark:bg-[#252525];
+        cursor: pointer;
+      }
       &:last-child .bottom {
         @apply border-b-0;
       }
@@ -102,10 +114,6 @@ const changeTab = (i: number) => {
           &:last-child {
             @apply border-r-0;
           }
-
-          &.author {
-            @apply text-[#4e5969] dark:text-[#a9b4c5];
-          }
         }
       }
 
@@ -119,7 +127,7 @@ const changeTab = (i: number) => {
 
           .title {
             @apply font-bold text-[16px];
-            @apply leading-6 text-[#1d2129] dark:text-[#f3f8ff];
+            @apply leading-6 text-[#1d2129] dark:text-[#c8cbd7];
             @apply w-full;
             @apply text-ellipsis overflow-hidden;
             display: -webkit-box;
