@@ -26,9 +26,9 @@ const meta = inject('meta') as IMeta
 
   .link-content {
     @apply p-3;
-    @apply flex items-stretch justify-between;
+    @apply flex items-stretch justify-start;
     img {
-      @apply w-50px h-50px;
+      @apply w-50px h-50px mr-3;
     }
 
     .link-desc {
