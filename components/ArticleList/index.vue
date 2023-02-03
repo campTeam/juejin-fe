@@ -20,16 +20,7 @@
             writer-motto="测试内容"
             writer-avatar="https://p3-passport.byteimg.com/img/user-avatar/a87f08adcd0dad907726396180915552~100x100.awebp"
           >
-            <div
-              :ref="
-                el => {
-                  setSlotRef(el as (Element | null))
-                }
-              "
-              class="top-item author"
-            >
-              掘金酱
-            </div>
+            <div :ref="setSlotRef" class="top-item author">掘金酱</div>
           </ArticleListHoverBox>
           <div class="top-item time">25天前</div>
           <div class="top-item tag">
