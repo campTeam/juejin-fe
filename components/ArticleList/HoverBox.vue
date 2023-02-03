@@ -1,5 +1,4 @@
 <template>
-  <!-- 包裹的内容 -->
   <slot :set-slot-ref="setSlotRef"></slot>
   <!-- 鼠标悬浮后展示的弹窗 -->
   <Teleport to="body">
