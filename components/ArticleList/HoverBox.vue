@@ -1,6 +1,14 @@
 <template>
-  <!-- 问题: 插槽main 的外层会多一个div包裹，影响dom结构  -->
-  <div class="HoverBox" @mouseenter="enter" @mouseleave="leave">
+  <!-- 问题: 插槽 main 的外层会多一个div包裹，影响dom结构  -->
+  <div
+    class="HoverBox"
+    @mouseenter="
+      () => {
+        enter()
+      }
+    "
+    @mouseleave="leave"
+  >
     <!-- 包裹的内容 -->
     <slot name="main"> </slot>
     <!-- 鼠标悬浮后展示的弹窗 -->
@@ -33,12 +41,11 @@ const topType: Ref<boolean> = ref(true) //弹出层在上还是在下，上true 
 const animateClass: Ref<boolean> = ref(false) //渐入渐出效果，用transition和类名
 
 //#region  鼠标进入离开事件
-let timer: NodeJS.Timeout //控制关闭弹窗效果
-let timer2: NodeJS.Timeout //控制打开弹窗效果
-const enter = async (flag: boolean) => {
-  // console.log('进入')
+let timer: number //控制关闭弹窗效果
+let timer2: number //控制打开弹窗效果
+const enter = async (flag?: boolean) => {
   clearTimeout(timer)
-  timer2 = setTimeout(async () => {
+  timer2 = window.setTimeout(async () => {
     show.value = true
     if (flag == true) return //如果传递了标识true，则不继续往下执行
     await nextTick()
@@ -49,7 +56,7 @@ const enter = async (flag: boolean) => {
 const leave = () => {
   clearTimeout(timer)
   clearTimeout(timer2)
-  timer = setTimeout(() => {
+  timer = window.setTimeout(() => {
     // console.log('离开')
     animateClass.value = false //盒子透明度变为0
     show.value = false //关闭盒子显示
