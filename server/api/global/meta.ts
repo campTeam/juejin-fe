@@ -23,6 +23,10 @@ export interface IMeta {
     summary: string
     thumbnail: string
   }[]
+  defaultSEO: {
+    keywords: string
+    description: string
+  }
 }
 
 const { apiEntry } = useRuntimeConfig()
@@ -37,6 +41,7 @@ export default defineEventHandler(async () => {
         'favicon',
         'ads.thumbnail',
         'siteName',
+        'defaultSEO',
       ],
     },
     { encodeValuesOnly: true }
@@ -69,5 +74,9 @@ export default defineEventHandler(async () => {
         thumbnail: getMediaLink(item.thumbnail),
       }
     }),
+    defaultSEO: {
+      keywords: result.data.attributes.defaultSEO.keywords,
+      description: result.data.attributes.defaultSEO.description,
+    },
   })
 })
