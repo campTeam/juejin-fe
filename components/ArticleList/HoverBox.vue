@@ -1,38 +1,40 @@
 <template>
   <slot :set-slot-ref="setSlotRef"></slot>
-  <!-- 鼠标悬浮后展示的弹窗 -->
-  <Teleport to="body">
-    <Transition name="fade">
-      <div
-        v-if="isBoxShown"
-        ref="boxRef"
-        class="box"
-        :class="[boxDirection ? 'box-top' : 'box-bottom']"
-        :style="{ top: `${boxY}px`, left: `${boxX}px` }"
-        @mouseenter="enter(true)"
-        @mouseleave="leave()"
-      >
-        <div class="writer-detail">
-          <img :src="writerAvatar" class="left" />
-          <div class="right">
-            <div class="name">{{ writerName }}</div>
-            <div class="detail">{{ writerMotto }}</div>
-          </div>
-        </div>
-        <!-- 弹出层箭头 -->
-        <svg
-          class="arrow"
-          :class="boxDirection ? 'arrow-top' : 'arrow-bottom'"
-          :style="{
-            '--tw-translate-x': `calc(-50% + ${arrowOffset}px)`,
-          }"
+  <ClientOnly>
+    <!-- 鼠标悬浮后展示的弹窗 -->
+    <Teleport to="body">
+      <Transition name="fade">
+        <div
+          v-if="isBoxShown"
+          ref="boxRef"
+          class="box"
+          :class="[boxDirection ? 'box-top' : 'box-bottom']"
+          :style="{ top: `${boxY}px`, left: `${boxX}px` }"
+          @mouseenter="enter(true)"
+          @mouseleave="leave()"
         >
-          <path class="arrow-bg" d="M 0 0 L 10 10 L 20 0 Z" />
-          <path class="arrow-stroke" d="M 0 0 L 10 10 L 20 0" />
-        </svg>
-      </div>
-    </Transition>
-  </Teleport>
+          <div class="writer-detail">
+            <img :src="writerAvatar" class="left" />
+            <div class="right">
+              <div class="name">{{ writerName }}</div>
+              <div class="detail">{{ writerMotto }}</div>
+            </div>
+          </div>
+          <!-- 弹出层箭头 -->
+          <svg
+            class="arrow"
+            :class="boxDirection ? 'arrow-top' : 'arrow-bottom'"
+            :style="{
+              '--tw-translate-x': `calc(-50% + ${arrowOffset}px)`,
+            }"
+          >
+            <path class="arrow-bg" d="M 0 0 L 10 10 L 20 0 Z" />
+            <path class="arrow-stroke" d="M 0 0 L 10 10 L 20 0" />
+          </svg>
+        </div>
+      </Transition>
+    </Teleport>
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">
