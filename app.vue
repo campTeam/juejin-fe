@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { data: meta } = await useFetch('/api/global/meta')
+const { data: categories } = await useFetch('/api/categories')
 
 useHead({
   link: [
@@ -29,6 +30,7 @@ useHead({
 })
 
 provide('meta', meta.value!.data)
+provide('categories', categories.value!.data)
 
 // 下面是 header 显示与隐藏的逻辑（仅客户端）
 
