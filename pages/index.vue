@@ -36,7 +36,7 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
       </div>
     </div>
     <Aside :offset="40">
-      <ArticleList />
+      <NuxtPage />
       <template #aside>
         <Ads />
         <AppGadget />
