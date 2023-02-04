@@ -14,6 +14,18 @@ useHead({
       ? `${titleChunk} - ${meta.value!.data.siteName}`
       : meta.value!.data.siteName
   },
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: meta.value!.data.defaultSEO.description,
+    },
+    {
+      hid: 'keywords',
+      name: 'keywords',
+      content: meta.value!.data.defaultSEO.keywords,
+    },
+  ],
 })
 
 provide('meta', meta.value!.data)
