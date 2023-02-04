@@ -57,8 +57,6 @@ defineProps<{
 }>()
 
 watch(slotRef, (newEl, oldEl) => {
-  console.log(newEl, oldEl)
-
   if (newEl) {
     // 监听插槽的变化，当鼠标进入插槽元素时，显示弹出层
     newEl.addEventListener('mouseenter', enter)

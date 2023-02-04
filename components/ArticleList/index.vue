@@ -52,9 +52,37 @@
 import { Ref } from 'vue'
 const arr: string[] = ['推荐', '最新', '热榜']
 const nowIndex: Ref<number> = ref(0)
+const nowPage: Ref<number> = ref(1) //当前是第几页 初始为1
+const loading: Ref<boolean> = ref(false) //是否正在请求
 
+//切换栏目
 const changeTab = (i: number) => {
   nowIndex.value = i
+  nowPage.value = 1 //切换栏目后需要重新分页
+}
+
+//页面触底
+//防止document获取不到而报错
+if (process.client) {
+  const { arrivedState } = useScroll(document) //监听document页面滚动
+  //监视页面是否触底 true or false
+  watch(
+    () => arrivedState.bottom,
+    (newValue, oldValue) => {
+      if (newValue) arrivedBottom()
+    }
+  )
+  //触底后的处理
+  const arrivedBottom = () => {
+    if (loading.value) return
+    loading.value = true
+    nowPage.value++
+    console.log('触底啦, 当前需要请求第', nowPage.value, '页')
+    setTimeout(() => {
+      loading.value = false
+      console.log('请求完成')
+    }, 2000) //模拟请求
+  }
 }
 </script>
 
