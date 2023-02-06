@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { data: meta } = await useFetch('/api/global/meta')
+const { data: categories } = await useFetch('/api/categories')
 
 useHead({
   link: [
@@ -14,9 +15,22 @@ useHead({
       ? `${titleChunk} - ${meta.value!.data.siteName}`
       : meta.value!.data.siteName
   },
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: meta.value!.data.defaultSEO.description,
+    },
+    {
+      hid: 'keywords',
+      name: 'keywords',
+      content: meta.value!.data.defaultSEO.keywords,
+    },
+  ],
 })
 
 provide('meta', meta.value!.data)
+provide('categories', categories.value!.data)
 
 // 下面是 header 显示与隐藏的逻辑（仅客户端）
 

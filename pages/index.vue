@@ -1,21 +1,34 @@
 <script lang="ts" setup>
 import { Ref } from 'vue'
-useHead({
-  title: '首页',
-})
-const subTab: string[] = [
-  '综合',
-  '后端',
-  '前端',
-  'Android',
-  'iOS',
-  '人工智能',
-  '开发工具',
-  '代码人生',
-  '阅读',
-]
-const subTabIndex: Ref<number> = ref(0)
+import { ICategories } from '~~/server/api/categories'
+
+const categories = inject('categories') as ICategories
+
+const subTab: ICategories = [{ id: 0, name: '综合', slug: '' }, ...categories]
+
 const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
+
+const route = useRoute()
+
+watch(
+  () => route.params,
+  newVal => {
+    const { slug } = newVal
+    let _index = 0
+    if (slug) {
+      _index = subTab.findIndex(item => item.slug === slug)
+      if (_index === -1) {
+        navigateTo('/404')
+        return
+      }
+    }
+
+    useHead({
+      title: subTab[_index].name,
+    })
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
@@ -23,20 +36,20 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
     <div class="header-wrapper">
       <div class="header" :class="{ visible: isHeaderVisible }">
         <nav class="subtab">
-          <span
-            v-for="(item, index) in subTab"
-            :key="index"
+          <NuxtLink
+            v-for="item in subTab"
+            :key="item.id"
             class="subtab-item"
-            :class="{ active: subTabIndex === index }"
-            @click="subTabIndex = index"
+            :to="item.slug ? `/nav-${item.slug}` : '/'"
           >
-            {{ item }}
-          </span>
+            {{ item.name }}
+          </NuxtLink>
+          <span> </span>
         </nav>
       </div>
     </div>
     <Aside :offset="40">
-      <ArticleList />
+      <NuxtPage />
       <template #aside>
         <Ads />
         <AppGadget />
@@ -87,7 +100,7 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
         @apply text-black/80 dark:text-[#81878c];
         @apply whitespace-nowrap;
 
-        &.active,
+        &.router-link-exact-active,
         &:hover {
           @apply text-primary;
         }
