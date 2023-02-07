@@ -3,7 +3,7 @@ import { apiResponse } from '../utils'
 
 const { apiEntry } = useRuntimeConfig()
 
-interface ICategoryItem {
+export interface ICategoryItem {
   id: number
   name: string
   slug: string
