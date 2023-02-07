@@ -15,14 +15,7 @@ const InfiniteScrollCheckRef: Ref<HTMLElement | null> = ref(null)
 useIntersectionObserver(
   InfiniteScrollCheckRef,
   async ([{ isIntersecting }]) => {
-    if (isIntersecting) {
-      emit('fetch')
-    }
-  },
-  {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.5,
+    if (isIntersecting) emit('fetch')
   }
 )
 </script>
@@ -37,27 +30,30 @@ useIntersectionObserver(
         :to="`/article/${article.id}`"
       >
         <div class="top">
-          <ArticleListHoverBox
-            v-slot="{ setSlotRef }"
-            :writer-name="article.writer.name"
-            :writer-motto="article.writer.motto"
-            :writer-avatar="article.writer.avatar"
-          >
-            <div
-              :ref="
-                el => {
-                  setSlotRef(el)
-                }
-              "
-              class="top-item author"
+          <div class="details">
+            <ArticleListHoverBox
+              v-slot="{ setSlotRef }"
+              :writer-name="article.writer.name"
+              :writer-motto="article.writer.motto"
+              :writer-avatar="article.writer.avatar"
             >
-              {{ article.writer.name }}
+              <div
+                :ref="
+                  el => {
+                    setSlotRef(el)
+                  }
+                "
+                class="top-item author"
+              >
+                {{ article.writer.name }}
+              </div>
+            </ArticleListHoverBox>
+            <div class="top-item time">{{ useTimeAgoCN(article.time) }}</div>
+            <div v-if="article.tags.length" class="top-item tag">
+              {{ article.tags.join(' · ') }}
             </div>
-          </ArticleListHoverBox>
-          <div class="top-item time">{{ useTimeAgoCN(article.time) }}</div>
-          <div v-if="article.tags.length" class="top-item tag">
-            {{ article.tags.join(' · ') }}
           </div>
+          <div v-if="article.isAd" class="is-ad">广告</div>
         </div>
         <div class="bottom">
           <div class="left">
@@ -72,7 +68,7 @@ useIntersectionObserver(
             v-if="article.thumbnail"
             :src="article.thumbnail"
             alt=""
-            class="right"
+            class="article-thumbnail"
           />
         </div>
       </NuxtLink>
@@ -100,38 +96,44 @@ useIntersectionObserver(
       }
 
       .top {
-        @apply flex items-start;
+        @apply flex items-start justify-between;
         @apply h-6 text-0.8em;
 
-        .top-item {
-          @apply leading-4 text-[#86909c];
-          @apply px-2;
-          @apply border-r-1 border-gray-200 dark:border-[#494949];
+        .details {
+          @apply flex items-start;
 
-          &:first-child {
-            @apply pl-0;
+          .top-item {
+            @apply px-2 leading-4 text-[#86909c] whitespace-nowrap;
+            @apply border-r-1 border-gray-200 dark:border-[#494949];
+
+            &:first-child {
+              @apply pl-0;
+            }
+
+            &:last-child {
+              @apply border-r-0;
+            }
+
+            &.author {
+              @apply text-[#4e5969] dark:text-[#c8cbd7];
+            }
+
+            &.tag {
+              @apply flex-shrink;
+              @apply overflow-ellipsis overflow-hidden;
+            }
           }
+        }
 
-          &:last-child {
-            @apply border-r-0;
-          }
-
-          &.author {
-            @apply text-[#4e5969] dark:text-[#c8cbd7];
-          }
-
-          @apply whitespace-nowrap;
-
-          &.tag {
-            @apply flex-shrink;
-            @apply overflow-ellipsis overflow-hidden;
-          }
+        .is-ad {
+          @apply text-gray-400/80;
+          @apply border-current border-1 rounded-4px;
+          @apply px-7px py-2px;
         }
       }
 
       .bottom {
-        @apply flex justify-between;
-        @apply pb-3;
+        @apply pb-3 flex justify-between;
         @apply border-b-1 border-gray-200 dark:border-[#494949];
 
         .left {
@@ -139,8 +141,7 @@ useIntersectionObserver(
           @apply break-all;
 
           .title {
-            @apply font-bold text-[16px];
-            @apply leading-6 text-[#1d2129] dark:text-[#c8cbd7];
+            @apply font-bold text-[16px] leading-6 text-[#1d2129] dark:text-[#c8cbd7];
             @apply w-full;
             @apply overflow-ellipsis overflow-hidden;
             display: -webkit-box;
@@ -158,7 +159,7 @@ useIntersectionObserver(
           }
         }
 
-        .right {
+        .article-thumbnail {
           @apply ml-4 sm:ml-6;
           @apply rounded-sm w-120px h-80px;
         }
