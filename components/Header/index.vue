@@ -30,7 +30,7 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
               :class="{ 'mobile-shown': isMobileNavShown }"
               @click="toggleMobileNav()"
             >
-              {{ activeNav?.label }}
+              {{ activeNav?.label || '首页' }}
               <IconsArrow class="icon" />
             </div>
             <div
