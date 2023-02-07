@@ -1,6 +1,13 @@
 import { apiResponse, getMediaLink } from '~~/server/utils'
 import qs from 'qs'
 
+export interface IWriter {
+  id: number
+  name: string
+  avatar: string
+  motto: string
+}
+
 export interface IMeta {
   siteName: string
   favicon: string
@@ -11,12 +18,7 @@ export interface IMeta {
     link: string
     qrcode: string
   }
-  leaderboard: {
-    id: number
-    name: string
-    avatar: string
-    motto: string
-  }[]
+  leaderboard: IWriter[]
   ads: {
     id: number
     link: string

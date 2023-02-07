@@ -1,104 +1,92 @@
+<script setup lang="ts">
+import { IArticleList } from '~~/server/api/articles'
+import type { Ref } from 'vue'
+
+defineProps<{
+  articleList: IArticleList
+}>()
+
+const emit = defineEmits<{
+  (event: 'fetch'): void
+}>()
+
+const InfiniteScrollCheckRef: Ref<HTMLElement | null> = ref(null)
+
+useIntersectionObserver(
+  InfiniteScrollCheckRef,
+  async ([{ isIntersecting }]) => {
+    if (isIntersecting) emit('fetch')
+  }
+)
+</script>
+
 <template>
   <div class="article-list">
-    <ul class="tab">
-      <li
-        v-for="(k, i) in arr"
-        :key="k"
-        class="tab-item"
-        :class="i == nowIndex ? 'tab-active' : ''"
-        @click="changeTab(i)"
+    <div class="list">
+      <NuxtLink
+        v-for="article of articleList"
+        :key="article.id"
+        class="item"
+        :to="`/article/${article.id}`"
       >
-        {{ k }}
-      </li>
-    </ul>
-    <ul class="list">
-      <li v-for="k of 30" :key="k" class="item">
         <div class="top">
-          <ArticleListHoverBox
-            v-slot="{ setSlotRef }"
-            writer-name="掘金酱"
-            writer-motto="测试内容"
-            writer-avatar="https://p3-passport.byteimg.com/img/user-avatar/a87f08adcd0dad907726396180915552~100x100.awebp"
-          >
-            <div
-              :ref="
-                el => {
-                  setSlotRef(el)
-                }
-              "
-              class="top-item author"
+          <div class="details">
+            <ArticleListHoverBox
+              v-slot="{ setSlotRef }"
+              :writer-name="article.writer.name"
+              :writer-motto="article.writer.motto"
+              :writer-avatar="article.writer.avatar"
             >
-              掘金酱
+              <div
+                :ref="
+                  el => {
+                    setSlotRef(el)
+                  }
+                "
+                class="top-item author"
+              >
+                {{ article.writer.name }}
+              </div>
+            </ArticleListHoverBox>
+            <div class="top-item time">{{ useTimeAgoCN(article.time) }}</div>
+            <div v-if="article.tags.length" class="top-item tag">
+              {{ article.tags.join(' · ') }}
             </div>
-          </ArticleListHoverBox>
-          <div class="top-item time">25天前</div>
-          <div class="top-item tag">
-            {{ ['后端', 'GitHub', '掘金'].join(' · ') }}
           </div>
+          <div v-if="article.isAd" class="is-ad">广告</div>
         </div>
         <div class="bottom">
           <div class="left">
             <div class="title">
-              「兔了个兔」创意投稿大赛来袭！秀兔兔创意，迎新年好礼！
+              {{ article.title }}
             </div>
             <div class="content">
-              这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容
+              {{ article.summary }}
             </div>
           </div>
           <img
-            v-if="k % 2 == 0"
-            src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bb72413461364175af5edf2a1fae4446~tplv-k3u1fbpfcp-no-mark:240:240:240:160.awebp?"
+            v-if="article.thumbnail"
+            :src="article.thumbnail"
             alt=""
-            class="right"
+            class="article-thumbnail"
           />
         </div>
-      </li>
-    </ul>
+      </NuxtLink>
+    </div>
+    <div ref="InfiniteScrollCheckRef"></div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { Ref } from 'vue'
-const arr: string[] = ['推荐', '最新', '热榜']
-const nowIndex: Ref<number> = ref(0)
-
-const changeTab = (i: number) => {
-  nowIndex.value = i
-}
-</script>
 
 <style lang="scss" scoped>
 .article-list {
   @apply w-full;
   @apply rounded-sm bg-white dark:bg-[#121212];
 
-  .tab {
-    @apply flex items-center;
-    @apply h-11 w-full px-3;
-    @apply border-b-1 border-gray-100 dark:border-[#292929];
-
-    .tab-item {
-      @apply text-sm leading-4 text-[#909090];
-      @apply cursor-pointer;
-      @apply px-3.5;
-      @apply border-r-1 border-gray-200 dark:border-[#494949];
-
-      &:last-child {
-        @apply border-r-0;
-      }
-
-      &.tab-active,
-      &:hover {
-        @apply text-primary;
-      }
-    }
-  }
-
   .list {
     @apply w-full;
 
     .item {
-      @apply pt-3 px-5;
+      @apply pt-3 px-5 block overflow-hidden max-w-100vw;
       &:hover {
         @apply bg-[#fafafa] dark:bg-[#252525];
         cursor: pointer;
@@ -108,35 +96,52 @@ const changeTab = (i: number) => {
       }
 
       .top {
-        @apply flex items-start;
+        @apply flex items-start justify-between;
         @apply h-6 text-0.8em;
 
-        .top-item {
-          @apply leading-4 text-[#86909c];
-          @apply px-2;
-          @apply border-r-1 border-gray-200 dark:border-[#494949];
+        .details {
+          @apply flex items-start;
 
-          &:first-child {
-            @apply pl-0;
-          }
+          .top-item {
+            @apply px-2 leading-4 text-[#86909c] whitespace-nowrap;
+            @apply border-r-1 border-gray-200 dark:border-[#494949];
 
-          &:last-child {
-            @apply border-r-0;
+            &:first-child {
+              @apply pl-0;
+            }
+
+            &:last-child {
+              @apply border-r-0;
+            }
+
+            &.author {
+              @apply text-[#4e5969] dark:text-[#c8cbd7];
+            }
+
+            &.tag {
+              @apply flex-shrink;
+              @apply overflow-ellipsis overflow-hidden;
+            }
           }
+        }
+
+        .is-ad {
+          @apply text-gray-400/80;
+          @apply border-current border-1 rounded-4px;
+          @apply px-7px py-2px;
         }
       }
 
       .bottom {
-        @apply flex justify-between;
-        @apply pb-3;
+        @apply pb-3 flex justify-between;
         @apply border-b-1 border-gray-200 dark:border-[#494949];
 
         .left {
           @apply flex flex-col justify-start;
+          @apply break-all;
 
           .title {
-            @apply font-bold text-[16px];
-            @apply leading-6 text-[#1d2129] dark:text-[#c8cbd7];
+            @apply font-bold text-[16px] leading-6 text-[#1d2129] dark:text-[#c8cbd7];
             @apply w-full;
             @apply overflow-ellipsis overflow-hidden;
             display: -webkit-box;
@@ -154,8 +159,8 @@ const changeTab = (i: number) => {
           }
         }
 
-        .right {
-          @apply ml-6;
+        .article-thumbnail {
+          @apply ml-4 sm:ml-6;
           @apply rounded-sm w-120px h-80px;
         }
       }

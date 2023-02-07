@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { Ref } from 'vue'
-import { ICategories } from '~~/server/api/categories'
+import type { Ref } from 'vue'
+import type { ICategories, ICategoryItem } from '~~/server/api/categories'
 
 const categories = inject('categories') as ICategories
 
@@ -9,6 +9,10 @@ const subTab: ICategories = [{ id: 0, name: '综合', slug: '' }, ...categories]
 const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
 
 const route = useRoute()
+
+const currentCategory: Ref<ICategoryItem> = ref(subTab[0])
+
+provide('currentCategory', currentCategory)
 
 watch(
   () => route.params,
@@ -26,6 +30,8 @@ watch(
     useHead({
       title: subTab[_index].name,
     })
+
+    currentCategory.value = subTab[_index]
   },
   { immediate: true }
 )
@@ -54,7 +60,6 @@ watch(
         <Ads />
         <AppGadget />
         <LeaderBoard />
-        <Footer />
       </template>
       <template #asideFloat>
         <Ads />

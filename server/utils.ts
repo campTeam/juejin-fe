@@ -19,3 +19,14 @@ export function apiResponse<T>(
 export function getMediaLink(mediaObj: any): string {
   return publicAPIEntry + mediaObj.data.attributes.url
 }
+
+export function getThumbnailLink(mediaObj: any): string {
+  if (
+    mediaObj.data.attributes.formats &&
+    mediaObj.data.attributes.formats.thumbnail
+  ) {
+    return publicAPIEntry + mediaObj.data.attributes.formats.thumbnail.url
+  } else {
+    return getMediaLink(mediaObj)
+  }
+}
