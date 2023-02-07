@@ -37,5 +37,9 @@ const requestFetch = async () => {
 </script>
 
 <template>
-  <ArticleList :article-list="articleList" @fetch="requestFetch" />
+  <ArticleList
+    :article-list="articleList"
+    :is-fetching="isFetching"
+    @fetch="requestFetch"
+  />
 </template>
