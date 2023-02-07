@@ -58,7 +58,7 @@ onMounted(() => {
   @apply flex justify-between items-start;
 
   .aside-right {
-    @apply flex-grow;
+    @apply flex-grow pb-6;
   }
 
   .aside-left {
