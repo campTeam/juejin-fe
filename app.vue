@@ -61,6 +61,18 @@ if (process.client) {
     }
   })
 }
+
+// 下面是 页面加载 的hook
+const nuxtApp = useNuxtApp()
+const isPageLoading = ref(false)
+provide('isPageLoading', isPageLoading)
+nuxtApp.hook('page:start', () => {
+  isPageLoading.value = true
+})
+
+nuxtApp.hook('page:finish', () => {
+  isPageLoading.value = false
+})
 </script>
 
 <template>

@@ -4,7 +4,6 @@ import type { Ref } from 'vue'
 
 defineProps<{
   articleList: IArticleList
-  isFetching?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -24,60 +23,55 @@ useIntersectionObserver(
 <template>
   <div class="article-list">
     <div class="list">
-      <div v-if="articleList.length === 0 && isFetching" class="skeleton">
-        <Skeleton :rows="4" animated />
-      </div>
-      <template v-else>
-        <NuxtLink
-          v-for="article of articleList"
-          :key="article.id"
-          class="item"
-          :to="`/article/${article.id}`"
-        >
-          <div class="top">
-            <div class="details" :class="{ 'with-ad': article.isAd }">
-              <ArticleListHoverBox
-                v-slot="{ setSlotRef }"
-                :writer-name="article.writer.name"
-                :writer-motto="article.writer.motto"
-                :writer-avatar="article.writer.avatar"
+      <NuxtLink
+        v-for="article of articleList"
+        :key="article.id"
+        class="item"
+        :to="`/article/${article.id}`"
+      >
+        <div class="top">
+          <div class="details" :class="{ 'with-ad': article.isAd }">
+            <ArticleListHoverBox
+              v-slot="{ setSlotRef }"
+              :writer-name="article.writer.name"
+              :writer-motto="article.writer.motto"
+              :writer-avatar="article.writer.avatar"
+            >
+              <div
+                :ref="
+                  el => {
+                    setSlotRef(el)
+                  }
+                "
+                class="top-item author"
               >
-                <div
-                  :ref="
-                    el => {
-                      setSlotRef(el)
-                    }
-                  "
-                  class="top-item author"
-                >
-                  {{ article.writer.name }}
-                </div>
-              </ArticleListHoverBox>
-              <div class="top-item time">{{ useTimeAgoCN(article.time) }}</div>
-              <div v-if="article.tags.length" class="top-item tag">
-                {{ article.tags.join(' · ') }}
+                {{ article.writer.name }}
               </div>
+            </ArticleListHoverBox>
+            <div class="top-item time">{{ useTimeAgoCN(article.time) }}</div>
+            <div v-if="article.tags.length" class="top-item tag">
+              {{ article.tags.join(' · ') }}
             </div>
-            <div v-if="article.isAd" class="ad-badge">广告</div>
           </div>
-          <div class="bottom">
-            <div class="left">
-              <div class="title">
-                {{ article.title }}
-              </div>
-              <div class="content">
-                {{ article.summary }}
-              </div>
+          <div v-if="article.isAd" class="ad-badge">广告</div>
+        </div>
+        <div class="bottom">
+          <div class="left">
+            <div class="title">
+              {{ article.title }}
             </div>
-            <img
-              v-if="article.thumbnail"
-              :src="article.thumbnail"
-              alt=""
-              class="article-thumbnail"
-            />
+            <div class="content">
+              {{ article.summary }}
+            </div>
           </div>
-        </NuxtLink>
-      </template>
+          <img
+            v-if="article.thumbnail"
+            :src="article.thumbnail"
+            alt=""
+            class="article-thumbnail"
+          />
+        </div>
+      </NuxtLink>
     </div>
     <div ref="InfiniteScrollCheckRef"></div>
   </div>
@@ -90,10 +84,6 @@ useIntersectionObserver(
 
   .list {
     @apply w-full;
-
-    .skeleton {
-      @apply p-6;
-    }
 
     .item {
       @apply pt-3 px-5 block overflow-hidden max-w-100vw;
