@@ -30,7 +30,7 @@ useIntersectionObserver(
         :to="`/article/${article.id}`"
       >
         <div class="top">
-          <div class="details">
+          <div class="details" :class="{ 'with-ad': article.isAd }">
             <ArticleListHoverBox
               v-slot="{ setSlotRef }"
               :writer-name="article.writer.name"
@@ -53,7 +53,7 @@ useIntersectionObserver(
               {{ article.tags.join(' · ') }}
             </div>
           </div>
-          <div v-if="article.isAd" class="is-ad">广告</div>
+          <div v-if="article.isAd" class="ad-badge">广告</div>
         </div>
         <div class="bottom">
           <div class="left">
@@ -100,7 +100,12 @@ useIntersectionObserver(
         @apply h-6 text-0.8em;
 
         .details {
-          @apply flex items-start;
+          @apply flex items-start flex-shrink max-w-full;
+
+          &.with-ad {
+            // 当存在广告徽章时，文章信息区最大宽度减小
+            @apply max-w-[calc(100%-40px)];
+          }
 
           .top-item {
             @apply px-2 leading-4 text-[#86909c] whitespace-nowrap;
@@ -125,10 +130,15 @@ useIntersectionObserver(
           }
         }
 
-        .is-ad {
-          @apply text-gray-400/80;
+        .ad-badge {
+          @apply flex-shrink-0;
+          @apply text-gray-400/60 whitespace-nowrap;
           @apply border-current border-1 rounded-4px;
           @apply px-7px py-2px;
+
+          @screen <sm {
+            @apply transform-gpu scale-80 origin-top-right;
+          }
         }
       }
 

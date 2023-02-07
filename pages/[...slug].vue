@@ -15,7 +15,7 @@
 
 <style lang="scss" scoped>
 .view-wrapper {
-  @apply fixed top-0 left-0 right-0 bottom-0;
+  @apply fixed top-0 left-0 right-0 bottom-0 bg-white dark:bg-[#222323];
   @apply flex flex-col justify-center items-center;
 
   .notfound-image {

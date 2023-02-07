@@ -63,11 +63,11 @@
 
   // 下面是默认的填充颜色
   .logo-icon {
-    @apply fill-primary;
+    @apply fill-primary h-full;
   }
 
   .logo-text {
-    @apply fill-black;
+    @apply fill-black h-full;
     @apply ml-2;
   }
 }
