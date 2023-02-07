@@ -90,7 +90,7 @@ useIntersectionObserver(
     @apply w-full;
 
     .item {
-      @apply pt-3 px-5 block;
+      @apply pt-3 px-5 block overflow-hidden max-w-100vw;
       &:hover {
         @apply bg-[#fafafa] dark:bg-[#252525];
         cursor: pointer;
@@ -118,6 +118,13 @@ useIntersectionObserver(
 
           &.author {
             @apply text-[#4e5969] dark:text-[#c8cbd7];
+          }
+
+          @apply whitespace-nowrap;
+
+          &.tag {
+            @apply flex-shrink;
+            @apply overflow-ellipsis overflow-hidden;
           }
         }
       }
@@ -152,7 +159,7 @@ useIntersectionObserver(
         }
 
         .right {
-          @apply ml-6;
+          @apply ml-4 sm:ml-6;
           @apply rounded-sm w-120px h-80px;
         }
       }
