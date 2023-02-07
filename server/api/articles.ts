@@ -40,6 +40,7 @@ export default defineEventHandler(async event => {
 
   const query = qs.stringify(
     {
+      sort: ['id:desc'],
       filters,
       fields: ['id', 'title', 'summary', 'time', 'isAd'],
       populate: {
