@@ -71,7 +71,7 @@ onMounted(() => {
     }
 
     .aside-normal {
-      @apply space-y-4.2;
+      @apply space-y-4.2 pb-60px;
     }
   }
 
