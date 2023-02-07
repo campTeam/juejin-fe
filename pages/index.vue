@@ -54,7 +54,6 @@ watch(
         <Ads />
         <AppGadget />
         <LeaderBoard />
-        <Footer />
       </template>
       <template #asideFloat>
         <Ads />
