@@ -101,7 +101,7 @@ header {
 
     &:deep(.logo-text) {
       @apply dark:fill-[#e0e0e0];
-      @apply hidden xs:block;
+      @apply hidden sm:block;
     }
   }
 
@@ -151,7 +151,7 @@ header {
         }
       }
 
-      @screen <xs {
+      @screen <sm {
         @apply -left-65px translate-x-0;
         @apply rounded-l-none;
       }
