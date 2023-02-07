@@ -81,7 +81,7 @@ const enter = async (flag?: boolean) => {
     if (flag == true) return // 如果传递了标识true，则不继续往下执行
     await nextTick()
     offectBox() // 修正盒子位置
-  }, 300) // 300ms内移出了就不弹出
+  }, 150) // 300ms内移出了就不弹出
 }
 const leave = () => {
   clearTimeout(timer)
@@ -89,7 +89,7 @@ const leave = () => {
   timer = window.setTimeout(() => {
     isBoxShown.value = false // 关闭盒子显示
     boxDirection.value = true // 朝向设置回默认值
-  }, 300) // 离开盒子300ms后才进行关闭动作
+  }, 150) // 离开盒子300ms后才进行关闭动作
 }
 // #endregion
 
