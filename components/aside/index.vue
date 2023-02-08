@@ -35,7 +35,11 @@ onMounted(() => {
       <slot></slot>
     </div>
     <div v-if="$slots.aside" class="aside-left">
-      <div ref="AsideLeftEl" class="aside-normal">
+      <div
+        ref="AsideLeftEl"
+        class="aside-normal"
+        :class="{ hide: $slots.aside && $slots.asideFloat && showFloatElement }"
+      >
         <slot name="aside"></slot>
       </div>
       <Transition name="fade">
@@ -75,6 +79,11 @@ onMounted(() => {
 
     .aside-normal {
       @apply space-y-4.2 pb-60px;
+      @apply opacity-100 transition-opacity;
+
+      &.hide {
+        @apply opacity-0 pointer-events-none;
+      }
     }
   }
 
