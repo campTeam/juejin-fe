@@ -27,7 +27,7 @@ a:hover {
 }
 
 .leaderboard-wrapper {
-  @apply rounded-sm;
+  @apply rounded-4px;
   @apply shadow-sm shadow-black/5 dark:shadow-white/5;
   @apply bg-white dark:bg-[#121212];
 

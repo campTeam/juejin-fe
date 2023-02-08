@@ -21,7 +21,7 @@ const meta = inject('meta') as IMeta
 <style lang="scss" scoped>
 .downlink {
   @apply bg-white dark:bg-[#121212];
-  @apply w-auto rounded-sm;
+  @apply w-auto rounded-4px;
   @apply shadow-sm shadow-black/5 dark:shadow-white/5;
 
   .link-content {

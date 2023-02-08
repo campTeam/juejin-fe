@@ -49,6 +49,6 @@ const isPageLoading = inject('isPageLoading') as Ref<boolean>
 <style lang="scss" scoped>
 .skeleton {
   @apply bg-white dark:bg-[#121212];
-  @apply rounded-sm p-4;
+  @apply rounded-4px p-4;
 }
 </style>
