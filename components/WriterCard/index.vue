@@ -7,19 +7,19 @@ defineProps<{
 </script>
 
 <template>
-  <div class="writercard-wrapper">
-    <img :src="writer.avatar" alt="" />
-    <div class="details">
-      <div class="name">{{ writer.name }}</div>
-      <div class="motto">{{ writer.motto }}</div>
+  <ArticleSideItem>
+    <div class="writercard-wrapper">
+      <img :src="writer.avatar" alt="" />
+      <div class="details">
+        <div class="name">{{ writer.name }}</div>
+        <div class="motto">{{ writer.motto }}</div>
+      </div>
     </div>
-  </div>
+  </ArticleSideItem>
 </template>
 
 <style lang="scss" scoped>
 .writercard-wrapper {
-  @apply w-full rounded-4px;
-  @apply bg-white dark:bg-[#121212];
   @apply p-5 flex items-center;
 
   img {

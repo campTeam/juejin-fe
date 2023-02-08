@@ -1,9 +1,9 @@
 <template>
   <div class="article-side-wrapper">
-    <div class="article-side-title">
+    <div v-if="$slots.title" class="article-side-title">
       <slot name="title"></slot>
     </div>
-    <div class="article-side-content">
+    <div class="article-side-content" :class="{ 'with-title': $slots.title }">
       <slot name="default"></slot>
     </div>
   </div>
@@ -22,8 +22,11 @@
   }
 
   .article-side-content {
-    @apply max-h-460px relative;
-    @apply mt-8px mr-4px overflow-auto;
+    @apply max-h-460px relative overflow-auto;
+
+    &.with-title {
+      @apply mt-8px mr-4px;
+    }
 
     &::-webkit-scrollbar {
       @apply w-6px h-80px;
