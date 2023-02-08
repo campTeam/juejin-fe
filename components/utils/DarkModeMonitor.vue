@@ -1,9 +1,9 @@
 <script setup lang="ts">
 function readDarkModeInStorage() {
-  const darkMode = localStorage.getItem('darkMode')
+  const darkMode = useCookie('darkMode')
   const possibleValues = ['auto', 'dark', 'light']
-  if (darkMode && possibleValues.includes(darkMode)) {
-    return darkMode
+  if (darkMode.value && possibleValues.includes(darkMode.value)) {
+    return darkMode.value
   } else {
     return 'auto'
   }
@@ -15,21 +15,32 @@ const preferredDark = usePreferredDark()
 watchEffect(() => {
   if (currentMode.value === 'auto') {
     if (preferredDark.value) {
-      document.documentElement.classList.add('dark')
-      setThemeColor('#121212')
+      setModeClass(true)
     } else {
-      document.documentElement.classList.remove('dark')
-      setThemeColor('#ffffff')
+      setModeClass(false)
     }
   } else if (currentMode.value === 'dark') {
-    document.documentElement.classList.add('dark')
-    setThemeColor('#121212')
+    setModeClass(true)
   } else if (currentMode.value === 'light') {
-    document.documentElement.classList.remove('dark')
-    setThemeColor('#ffffff')
+    setModeClass(false)
   }
-  localStorage.setItem('darkMode', currentMode.value)
+
+  useCookie('darkMode').value = currentMode.value
 })
+
+function setModeClass(isDark: boolean): void {
+  if (isDark) {
+    useHead({
+      htmlAttrs: { class: 'dark' },
+      meta: [{ name: 'theme-color', content: '#121212' }],
+    })
+  } else {
+    useHead({
+      htmlAttrs: { class: '' },
+      meta: [{ name: 'theme-color', content: '#ffffff' }],
+    })
+  }
+}
 </script>
 
 <template>

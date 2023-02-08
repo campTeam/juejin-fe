@@ -50,9 +50,7 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
           </div>
         </div>
         <div class="right">
-          <ClientOnly>
-            <UtilsDarkModeMonitor />
-          </ClientOnly>
+          <UtilsDarkModeMonitor />
         </div>
       </div>
     </header>
