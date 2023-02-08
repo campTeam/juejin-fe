@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IArticleList } from '~~/server/api/articles'
+import type { IArticleList } from '~~/server/api/articles'
 import type { Ref } from 'vue'
 
 defineProps<{

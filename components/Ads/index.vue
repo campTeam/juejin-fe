@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IMeta } from '~~/server/api/global/meta'
+import type { IMeta } from '~~/server/api/global/meta'
 
 const meta = inject('meta') as IMeta
 </script>
