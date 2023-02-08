@@ -46,6 +46,12 @@ md.renderer.rules.code_inline = function (tokens, idx) {
   return `<code class="inline-code">${code}</code>`
 }
 
+md.renderer.rules.heading_open = function (tokens, idx) {
+  const token = tokens[idx]
+  const level = token.tag.slice(1)
+  return `<h${level} id="heading-${idx}">`
+}
+
 export const parseMarkDown = (rawString: string) => {
   return md.render(rawString)
 }
