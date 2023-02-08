@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ICatalogItem } from '~~/components/ArticleRender/types'
 import type { IArticle } from '~~/server/api/article/[id]'
+import type { IArticleList } from '~~/server/api/articles'
 
 const route = useRoute()
 const id = parseInt(route.params.id as string)
@@ -28,6 +29,15 @@ const activeTitleId = ref('')
 const setActiveTitle = (title: string | null) => {
   activeTitleId.value = title || ''
 }
+
+const { data: relatedArticles } = await useFetch(`/api/related-articles`, {
+  query: {
+    id: articleData.id,
+    tags: articleData.tags,
+  },
+})
+
+const relatedArticlesData = relatedArticles.value!.data as IArticleList
 </script>
 
 <template>
@@ -55,6 +65,10 @@ const setActiveTitle = (title: string | null) => {
       </article>
       <template #aside>
         <WriterCard :writer="articleData.writer" />
+        <RelatedArticleList
+          v-if="relatedArticlesData.length"
+          :articles="relatedArticlesData"
+        />
         <ArticleCatalog
           v-if="catalogList.length"
           style="position: absolute"
