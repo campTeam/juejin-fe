@@ -27,6 +27,7 @@ useIntersectionObserver(
         v-for="article of articleList"
         :key="article.id"
         class="item"
+        target="_blank"
         :to="`/article/${article.id}`"
       >
         <div class="top">
