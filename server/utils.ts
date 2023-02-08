@@ -1,4 +1,4 @@
-import { IApiResponse } from '~~/types/api'
+import type { IApiResponse } from '~~/types/api'
 
 const {
   public: { apiEntry: publicAPIEntry },

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import { IArticleList } from '~~/server/api/articles'
 import type { ICategoryItem } from '~~/server/api/categories'
 
 const currentCategory = inject('currentCategory') as Ref<ICategoryItem>
@@ -50,6 +49,6 @@ const isPageLoading = inject('isPageLoading') as Ref<boolean>
 <style lang="scss" scoped>
 .skeleton {
   @apply bg-white dark:bg-[#121212];
-  @apply rounded-sm p-4;
+  @apply rounded-4px p-4;
 }
 </style>

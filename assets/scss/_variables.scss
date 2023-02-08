@@ -10,7 +10,7 @@
 
 @function theme-primary-map($primary-color: #1e80ff) {
   @return (
-    color-primary-dark: getColorValue(mix($primary-color, black, 90%)),
+    color-primary-dark: getColorValue(mix($primary-color, black, 70%)),
     color-primary: getColorValue($primary-color),
     color-primary-medium: getColorValue(mix($primary-color, white, 70%)),
     color-primary-light: getColorValue(mix($primary-color, white, 35%)),

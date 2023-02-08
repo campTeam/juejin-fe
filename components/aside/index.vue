@@ -9,6 +9,10 @@ defineProps({
     type: Number,
     default: 0,
   },
+  wider: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const AsideLeftEl = ref<HTMLElement | null>(null)
@@ -26,12 +30,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="main">
+  <div class="main" :class="{ wider }">
     <div class="aside-right">
       <slot></slot>
     </div>
     <div v-if="$slots.aside" class="aside-left">
-      <div ref="AsideLeftEl" class="aside-normal">
+      <div
+        ref="AsideLeftEl"
+        class="aside-normal"
+        :class="{ hide: $slots.aside && $slots.asideFloat && showFloatElement }"
+      >
         <slot name="aside"></slot>
       </div>
       <Transition name="fade">
@@ -54,7 +62,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .main {
-  @apply max-w-960px m-x-auto;
+  @apply m-x-auto max-w-960px;
   @apply flex justify-between items-start;
 
   .aside-right {
@@ -62,9 +70,8 @@ onMounted(() => {
   }
 
   .aside-left {
-    @apply flex-shrink-0;
-    @apply w-240px block;
-    @apply ml-5;
+    @apply block flex-shrink-0;
+    @apply ml-5 w-240px;
 
     @media (max-width: 960px) {
       @apply hidden;
@@ -72,6 +79,11 @@ onMounted(() => {
 
     .aside-normal {
       @apply space-y-4.2 pb-60px;
+      @apply opacity-100 transition-opacity;
+
+      &.hide {
+        @apply opacity-0 pointer-events-none;
+      }
     }
   }
 
@@ -87,6 +99,22 @@ onMounted(() => {
 
     &.header-offset .transform-controller {
       @apply translate-y-50px sm:translate-y-60px;
+    }
+  }
+
+  &.wider {
+    @apply max-w-1140px;
+
+    .aside-left {
+      @apply w-300px;
+
+      @media (max-width: 1140px) {
+        @apply hidden;
+      }
+    }
+
+    .aside-left-float {
+      @apply w-300px;
     }
   }
 }

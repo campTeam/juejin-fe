@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { Ref } from 'vue'
+import type { Ref } from 'vue'
 
 const boxRef = ref<HTMLElement | null>(null) // 弹出层的元素引用，用于调整弹窗位置，防止弹出屏幕边缘
 const isBoxShown: Ref<boolean> = ref(false) // 弹出层是否显示

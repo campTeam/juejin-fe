@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Ref } from 'vue'
+import type { Ref } from 'vue'
 
 const { data } = await useFetch('/api/global/nav')
 const route = useRoute()
@@ -50,9 +50,7 @@ const isHeaderVisible = inject('isHeaderVisible') as Ref<boolean>
           </div>
         </div>
         <div class="right">
-          <ClientOnly>
-            <UtilsDarkModeMonitor />
-          </ClientOnly>
+          <UtilsDarkModeMonitor />
         </div>
       </div>
     </header>

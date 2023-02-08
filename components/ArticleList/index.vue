@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IArticleList } from '~~/server/api/articles'
+import type { IArticleList } from '~~/server/api/articles'
 import type { Ref } from 'vue'
 
 defineProps<{
@@ -27,6 +27,7 @@ useIntersectionObserver(
         v-for="article of articleList"
         :key="article.id"
         class="item"
+        target="_blank"
         :to="`/article/${article.id}`"
       >
         <div class="top">
@@ -80,7 +81,7 @@ useIntersectionObserver(
 <style lang="scss" scoped>
 .article-list {
   @apply w-full;
-  @apply rounded-sm bg-white dark:bg-[#121212];
+  @apply rounded-4px bg-white dark:bg-[#121212];
 
   .list {
     @apply w-full;
@@ -171,7 +172,7 @@ useIntersectionObserver(
 
         .article-thumbnail {
           @apply ml-4 sm:ml-6;
-          @apply rounded-sm w-120px h-80px;
+          @apply rounded-4px w-120px h-80px;
         }
       }
     }
