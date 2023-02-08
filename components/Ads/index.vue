@@ -28,7 +28,7 @@ const meta = inject('meta') as IMeta
 
   .ad,
   .ad img {
-    @apply w-240px h-200px rounded-sm;
+    @apply w-full rounded-sm;
   }
 
   .ad {
