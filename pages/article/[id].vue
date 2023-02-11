@@ -38,6 +38,29 @@ const { data: relatedArticles } = await useFetch(`/api/related-articles`, {
 })
 
 const relatedArticlesData = relatedArticles.value!.data as IArticleList
+
+useHead({
+  title: articleData.title,
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: articleData.summary,
+    },
+  ],
+})
+
+if (articleData.tags.length) {
+  useHead({
+    meta: [
+      {
+        hid: 'keywords',
+        name: 'keywords',
+        content: articleData.tags.join(','),
+      },
+    ],
+  })
+}
 </script>
 
 <template>

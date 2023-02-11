@@ -91,7 +91,7 @@ watch(
 
     .subtab {
       @apply max-w-100vw w-972px h-full;
-      @apply flex justify-start items-center gap-8;
+      @apply flex justify-start items-center;
       @apply px-2;
       @apply overflow-x-auto;
 
@@ -100,10 +100,14 @@ watch(
       }
 
       .subtab-item {
-        @apply text-14px sm:text-15px;
+        @apply text-14px sm:text-15px mr-8;
         @apply cursor-pointer;
         @apply text-black/80 dark:text-[#81878c];
         @apply whitespace-nowrap;
+
+        &:last-of-type {
+          @apply mr-0;
+        }
 
         &.router-link-exact-active,
         &:hover {
