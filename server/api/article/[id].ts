@@ -10,6 +10,7 @@ export interface IArticle {
   id: number
   title: string
   content: string
+  summary: string
   writer: IWriter
   time: string
   tags: string[]
@@ -45,6 +46,7 @@ export default defineEventHandler(async event => {
     return apiResponse<IArticle>({
       id: result.data.id,
       title: result.data.attributes.title,
+      summary: result.data.attributes.summary,
       content: parseMarkDown(result.data.attributes.content),
       writer: {
         id: result.data.attributes.writer.data.id,
