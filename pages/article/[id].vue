@@ -40,6 +40,7 @@ const { data: relatedArticles } = await useFetch(`/api/related-articles`, {
 const relatedArticlesData = relatedArticles.value!.data as IArticleList
 
 useHead({
+  title: articleData.title,
   meta: [
     {
       hid: 'description',
