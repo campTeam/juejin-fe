@@ -14,7 +14,10 @@ const meta = inject('meta') as IMeta
     >
       <img class="avatar" :src="writer.avatar" />
       <div class="details">
-        <span class="name">{{ writer.name }}</span>
+        <div class="name-level-wrapper">
+          <span class="name">{{ writer.name }}</span>
+          <img class="level" :src="meta.level[writer.level - 1].disImg" />
+        </div>
         <span class="motto">{{ writer.motto }}</span>
       </div>
     </div>
@@ -49,9 +52,16 @@ a:hover {
     .details {
       @apply flex flex-col justify-center;
 
-      .name {
-        @apply text-16px text-black dark:text-white;
-        @apply mb-1.5;
+      .name-level-wrapper {
+        @apply flex;
+        .name {
+          @apply text-16px text-black dark:text-white;
+          @apply mb-1.5;
+        }
+        .level {
+          @apply w-35px h-16px;
+          @apply ml-1;
+        }
       }
 
       .motto {
