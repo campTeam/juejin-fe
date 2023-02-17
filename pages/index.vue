@@ -57,6 +57,7 @@ watch(
     <Aside :offset="40">
       <NuxtPage />
       <template #aside>
+        <Sign />
         <Ads />
         <AppGadget />
         <LeaderBoard />
